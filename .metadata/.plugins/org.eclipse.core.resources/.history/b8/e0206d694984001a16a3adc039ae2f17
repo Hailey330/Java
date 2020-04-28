@@ -1,0 +1,16 @@
+package booklist;
+
+public class Basic {
+
+	public static void main(String[] args) {
+		
+		// 만들어진 클래스(Booklist)를 사용하는 부분
+		Booklist so = new Booklist();
+		// so.getCon();
+		so.printBook();
+		
+		Booklist so2 = new Booklist();
+		so.printCustomer();
+	}
+
+}

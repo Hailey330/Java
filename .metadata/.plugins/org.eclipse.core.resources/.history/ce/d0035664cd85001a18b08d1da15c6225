@@ -1,0 +1,15 @@
+package dataex;
+
+// java.sql.Date ÆĞÅ°Áö 
+// java.sql.Time
+// java.sql.Timestamp
+// java.util.Calendar
+// java.util.date
+
+public class TimeEx01 {
+
+	public static void main(String[] args) {
+
+	}
+
+}

@@ -1,0 +1,18 @@
+package ch16;
+
+class MyJDBC {
+	public MyJDBC() {
+		System.out.println("생성자 호출");
+	}
+	static { // 객체 생성 전에 초기화 할 때 사용. new 할 때 static 내부 호출!
+		System.out.println("static 초기화 호출");
+	}
+}
+
+public class TestEx01 {
+
+	public static void main(String[] args) {
+//		MyJDBC mj = new MyJDBC();
+		Class.forName("MyJDBC");
+	}
+}

@@ -1,0 +1,17 @@
+package array03;
+
+//*
+//**
+//***
+//****
+
+public class StarEx01 {
+
+	public static void main(String[] args) {
+		System.out.println("*");              // 1개
+		System.out.println("**");            // 2개
+		System.out.println("***");          // 3개
+		System.out.println("****");        // 4개
+	}
+
+}

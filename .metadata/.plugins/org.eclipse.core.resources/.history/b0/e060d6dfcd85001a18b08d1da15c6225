@@ -1,0 +1,22 @@
+package dataex;
+
+// 구버전 자바 1.7 이하 패키지 
+// java.sql.Date  
+// java.sql.Time (X)
+// java.sql.Timestamp
+// java.util.Calendar (X)
+// java.util.date
+
+// 신버전 자바 1.8 이상
+// java.time.LocalDate
+// java.time.LocalDateTime
+// java.time.LocalTime
+
+
+public class TimeEx01 {
+
+	public static void main(String[] args) {
+
+	}
+
+}

@@ -1,0 +1,9 @@
+package array03;
+
+// 남은 동전의 개수를 구하는 프로그램
+public class Coin {
+	public static void main(String[] args) {
+
+	}
+
+}

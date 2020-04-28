@@ -1,0 +1,10 @@
+package array03;
+
+public class CharTest {
+
+	public static void main(String[] args) {
+		int ch = 68;
+		System.out.println((char)ch); // 아스키코드
+	}
+
+}

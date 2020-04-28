@@ -1,0 +1,16 @@
+package ch16;
+
+public class InserEx01 {
+
+	public static void main(String[] args) {
+//		OracleDriver o = new OracleDriver();
+//		다른 스택에서 필요하면 또 new 해야한다. 
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+}

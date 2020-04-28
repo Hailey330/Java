@@ -1,0 +1,13 @@
+package animal;
+
+interface Cal {
+	int num = 10;
+}
+
+public class InterfaceEx01 {
+
+	public static void main(String[] args) {
+		
+	}
+
+}

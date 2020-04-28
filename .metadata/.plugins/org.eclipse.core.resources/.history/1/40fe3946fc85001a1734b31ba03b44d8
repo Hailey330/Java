@@ -1,0 +1,15 @@
+package smsprogram;
+
+import javax.swing.JFrame;
+
+public class SmsMain extends JFrame {
+
+	public SmsMain() {
+
+	}
+	
+	public static void main(String[] args) {
+		new SmsMain();
+	}
+
+}

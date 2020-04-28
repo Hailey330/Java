@@ -1,0 +1,10 @@
+package practice;
+
+public class Person {
+	private int age;
+	
+p
+	public static void main(String[] args) {
+		
+	}
+}

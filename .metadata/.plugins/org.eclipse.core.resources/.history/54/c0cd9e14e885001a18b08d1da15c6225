@@ -1,0 +1,14 @@
+package ch11;
+
+import javax.swing.JFrame;
+
+public class LabelEx extends JFrame{
+
+	public LabelEx() {
+		// TODO Auto-generated constructor stub
+	}
+	public static void main(String[] args) {
+		new LabelEx();
+	}
+
+}

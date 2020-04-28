@@ -1,0 +1,14 @@
+package ch16;
+
+class MyJDBC {
+	public MyJDBC() {
+		System.out.println("생성자 호출");
+	}
+}
+
+public class TestEx01 {
+
+	public static void main(String[] args) {
+		
+	}
+}

@@ -1,0 +1,10 @@
+package ch16;
+
+class MyJDBC
+
+public class TestEx01 {
+
+	public static void main(String[] args) {
+		
+	}
+}

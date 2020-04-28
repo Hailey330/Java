@@ -1,0 +1,28 @@
+package array03;
+
+import java.util.Scanner;
+
+public class ArrayEx05 {
+
+	public static void main(String[] args) {
+		// 숫자 1000000000(10억)을 3자리마다 콤마를 찍어서 출력! 
+		// 1,000,000,000
+		Scanner sc = new Scanner(System.in);
+		int num = sc.nextInt();
+		String tempNum = num + "";
+		String tempNum2[] = tempNum.split("");
+		
+		for (int i = tempNum2.length; i >= 0; i--) {
+			System.out.print(tempNum2[i]);
+			if (i%4==0) {
+				System.out.print(",");
+			}
+			}
+		}
+		//System.out.println(tempNum2[0]);
+		//System.out.println("길이 : " + tempNum2.length);
+		
+		
+		
+	}
+

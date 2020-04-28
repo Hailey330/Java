@@ -1,0 +1,37 @@
+package practice;
+// 객체 지향 프로그래밍 관점에서 바람직하게 코드 수정하기
+
+// (2) 생성자 대신 메소드 추가
+
+class Power1 {
+	public int kick;
+	public int punch;
+
+	public int getKick() {
+		return kick;
+	}
+
+	public void setKick(int kick) {
+		this.kick = kick;
+	}
+
+	public int getPunch() {
+		return punch;
+	}
+
+	public void setPunch(int punch) {
+		this.punch = punch;
+	}
+}
+
+public class Example03 {
+	public static void main(String[] args) {
+		Power1 robot = new Power1();
+		robot.setKick(10);
+		robot.setPunch(15);
+		System.out.println(robot.getKick());
+		System.out.println(robot.getPunch());
+//		robot.kick = 10;
+//		robot.punch = 15;
+	}
+}

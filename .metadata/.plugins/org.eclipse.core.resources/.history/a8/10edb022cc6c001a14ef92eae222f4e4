@@ -1,0 +1,15 @@
+package array03;
+
+// 남은 동전의 개수를 구하는 프로그램 (500, 100, 50, 10)
+// 2,680 
+public class Coin {
+	public static void main(String[] args) {
+		int money = 2680;
+		
+		money = money%500;
+		int count = money/500;
+		System.out.println("money : " + money);
+		System.out.println("count : " + count);
+	}
+
+}

@@ -1,0 +1,62 @@
+package animal;
+
+interface Animal {
+	void run();
+
+	void sound();
+
+	class Dog implements Animal {
+
+		@Override
+		public void run() {
+
+		}
+
+		@Override
+		public void sound() {
+
+		}
+	}
+
+	class Bird {
+		void run() {
+
+		}
+
+		void sound() {
+			System.out.println();
+		}
+
+		void fly() {
+
+		}
+	}
+
+	
+	public class AnimalEx02 {
+
+		static void start(Animal a) {
+			
+		}
+		
+	public static void main(String[] args) {
+		start(new Dog());
+		start(new Dog());
+		
+		Dog d = new Dog();
+			d.run();
+			d.sound();
+			
+			Animal b = new Bit\();
+			d.run();
+			d.sound();
+			
+			
+			
+			if (b instanceof bird) {
+				// fly 메소드를 가진 놈이라는 걸 확신
+			((bird)b).fly();	
+			}
+	
+	}
+	

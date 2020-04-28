@@ -1,0 +1,3 @@
+static void attack(Cat u1, Bird u2) {
+		System.out.println(u2.NAME + "가 " + u1.NAME + "에게 공격 당했습니다.");
+	}

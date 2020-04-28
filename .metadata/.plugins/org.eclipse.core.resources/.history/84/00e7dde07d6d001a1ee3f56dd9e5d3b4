@@ -1,0 +1,30 @@
+package array03;
+
+import java.util.Scanner;
+
+//임의의 6자리 수를 입력 받는다.
+//
+public class ArrayEx07 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("6자리 숫자를 입력하세요.");
+		int num = sc.nextInt(); // 6자리 숫자 입력
+		
+		
+		String strNum = num + "";
+		System.out.println(strNum.charAt(0));
+		System.out.println(strNum.length());
+		String check = sc.next();
+		
+		for (int i = 0; i < strNum.length(); i++) {
+			System.out.println(strNum.charAt(i));
+			if(check.equals("3")) {
+				System.out.println("3을 찾았습니다.");
+			}else {
+				System.out.println("3을 못찾았습니다.");
+			}
+		}
+	}
+
+}

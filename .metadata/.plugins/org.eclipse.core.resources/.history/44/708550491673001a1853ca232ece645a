@@ -1,0 +1,41 @@
+package animal;
+
+interface Animal {
+	void run();
+
+	void sound();
+
+	class Dog implements Animal {
+
+		@Override
+		public void run() {
+
+		}
+
+		@Override
+		public void sound() {
+
+		}
+	}
+
+	class Bird {
+		void run() {
+
+		}
+
+		void sound() {
+
+		}
+
+		void fly() {
+
+		}
+	}
+
+	public class AnimalEx02 {
+
+	public static void main(String[] args) {
+		Dog d = new Dog();
+			d.run();
+			d.sound();
+	}

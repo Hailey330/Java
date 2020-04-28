@@ -1,0 +1,17 @@
+package array03;
+
+import java.util.Scanner;
+
+public class CardGame {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int num = sc.nextInt();
+		boolean confirm = true;
+		while(confirm) {
+			System.out.println("수를 결정하였습니다. 맞추어 보세요");
+		
+		}
+	}
+
+}

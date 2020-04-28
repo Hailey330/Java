@@ -1,0 +1,32 @@
+package animal;
+
+class Dog {
+	void run() {
+		
+	}
+
+	void sound() {
+
+	}
+}
+
+class Bird {
+	void run() {
+
+	}
+
+	void sound() {
+
+	}
+	void fly() {
+		
+	}
+}
+
+public class AnimalEx02 {
+
+	public static void main(String[] args) {
+
+	}
+
+}

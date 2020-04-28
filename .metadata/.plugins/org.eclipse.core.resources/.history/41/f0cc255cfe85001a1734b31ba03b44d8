@@ -1,0 +1,50 @@
+package smsprogram;
+
+import java.awt.Container;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class SmsMain extends JFrame {
+
+	private JLabel j1, j2, j3;
+	private JButton b1;
+	private JTextField jf1, jf2, jf3;
+	
+	public SmsMain() {
+		setTitle("SMS 전송 프로그램");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Container c = getContentPane();
+		c.setLayout(new FlowLayout());
+		
+		j1 = new JLabel("보내는 번호");
+		j2 = new JLabel("받는 번호");
+		j3 = new JLabel("내용");
+		
+		jf1 = new JTextField(20);
+		jf2 = new JTextField(20);
+		jf3 = new JTextField(20);
+		
+		c.add(j1);
+		c.add(j2);
+		c.add(j3);
+
+		c.add(jf1);
+		c.add(jf2);
+		c.add(jf3);
+		
+		JButton btn = new JButton("전송");
+		c.add(btn);
+		
+		setSize(300, 300);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new SmsMain();
+	}
+
+}

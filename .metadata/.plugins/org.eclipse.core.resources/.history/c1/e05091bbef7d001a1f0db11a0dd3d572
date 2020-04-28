@@ -1,0 +1,18 @@
+package ch15;
+
+import java.net.Socket;
+
+public class MySocketClient {
+
+	Socket socket;
+	public MySocketClient() {
+		socket = new Socket();
+		
+	}
+	
+	public static void main(String[] args) {
+		
+
+	}
+
+}

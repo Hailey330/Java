@@ -1,0 +1,15 @@
+package animal;
+
+// 1. 변수 : public static final 생략
+// 2. 함수 : public abstract 생략
+interface Cal {
+	int num = 10; 
+}
+
+public class InterfaceEx01 {
+
+	public static void main(String[] args) {
+		System.out.println(Cal.num);
+	}
+
+}
