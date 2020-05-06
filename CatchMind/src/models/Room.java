@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import chatting.MainHandler;
+import Server.MainHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,8 +1,0 @@
-package ch16;
-
-public class TestEx01 {
-
-	public static void main(String[] args) {
-		
-	}
-}
