@@ -1,5 +1,5 @@
 package Server;
-
+// Data 프로토콜 연결
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

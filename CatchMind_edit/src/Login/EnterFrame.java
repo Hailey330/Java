@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -28,11 +30,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import Server.Data;
+import net.nurigo.java_sdk.api.SenderID;
 import Chatting.CoprocessFrame;
 import Room.RoomFrame;
 import Room.RoomMake;
 
-public class EnterFrame extends JFrame implements ActionListener, Runnable, ListSelectionListener {
+public class EnterFrame extends JFrame implements ActionListener, Runnable, ListSelectionListener, KeyListener {
 	private JPasswordField pwT;
 	private JTextField idT;// , pwT;
 	private JButton idB, pwB, accessB, membershipB;
@@ -112,6 +115,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 
 		// --------------------- 메세지 ---------------------------------
 		RoomF.sendB.addActionListener(this); // 대기방에서 전송
+		RoomF.chattxt.addKeyListener(this); // 엔터치면 전송
 
 		// ---------------------- 대기방 --------------------------------
 		RoomF.makeB.addActionListener(this);
@@ -124,6 +128,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 		chattingF.saveB.addActionListener(this);
 		chattingF.loadB.addActionListener(this);
 		chattingF.list2.addListSelectionListener(this);
+		chattingF.field.addKeyListener(this); // 엔터치면 전송
 
 	}
 
@@ -220,7 +225,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 //		} else if (e.getSource() == searchpwF.cancleB) { // PW찾기페이지 -->PW 찾기 취소
 //			searchpwF.setVisible(false);
 //			this.setVisible(true);
-			
+
 		} else if (e.getSource() == RoomF.exitB) { // 대기실 page -> 로그인 page (로그아웃)
 
 			RoomF.setVisible(false);
@@ -230,7 +235,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 			pw.flush();
 
 		} else if (e.getSource() == RoomF.sendB) { // 대기실 page -> 채팅 messgae 전송
-		
+
 			String line = RoomF.chattxt.getText();
 			if (RoomF.chattxt.getText().length() != 0) {
 				pw.println(Data.SENDMESSAGE + "|" + line);
@@ -241,7 +246,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 		} else if (e.getSource() == RoomF.makeB) { // 대기실 page -> 방 만들기 버튼
 			RoomF.setVisible(false);
 			rMakeF.setVisible(true);
-		
+
 		} else if (e.getSource() == rMakeF.makeB) { // 방 만들기 page -> 방 만들기 버튼
 			String title = rMakeF.tf.getText();
 //			String rPassword = rMakeF.pf.getText();
@@ -273,21 +278,21 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 
 //				} else if (condition == 0 && rPassword.length() != 0) {
 //					JOptionPane.showMessageDialog(this, "비밀번호 사용을 선택해주세요.");
-				
-					String line = "";
-					line += (title + "%" + userCount);
+
+				String line = "";
+				line += (title + "%" + userCount);
 //					+ subject + "%" + condition);
-					pw.println(Data.ROOMMAKE + "|" + line);
-					pw.flush();
+				pw.println(Data.ROOMMAKE + "|" + line);
+				pw.flush();
 
 //					rMakeF.setVisible(false);
 //					RoomF.setVisible(true);
-					rMakeF.tf.setText("");
+				rMakeF.tf.setText("");
 //					rMakeF.pf.setText("");
-					rMakeF.combo1.setSelectedIndex(0);
-					rMakeF.combo.setSelectedIndex(0);
+				rMakeF.combo1.setSelectedIndex(0);
+				rMakeF.combo.setSelectedIndex(0);
 //					rMakeF.cb.setSelected(false);
-				}
+			}
 
 		} else if (e.getSource() == rMakeF.canB) { // 방 만들기 page -> 취소 버튼
 			rMakeF.setVisible(false);
@@ -297,7 +302,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 			rMakeF.combo1.setSelectedIndex(0);
 			rMakeF.combo.setSelectedIndex(0);
 //			rMakeF.cb.setSelected(false);
-			
+
 		} else if (e.getSource() == chattingF.exitB) { // 게임방 page -> 나가기 버튼
 
 			chattingF.setVisible(false);
@@ -309,11 +314,11 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 
 			chattingF.partList.setText("asd");
 
-		} else if (e.getSource() == chattingF.sendB) { // 게임방 page -> 채팅 message 전송 
-			pw.println(Data.CHATTINGSENDMESSAGE + "|" + chattingF.field.getText()); 
+		} else if (e.getSource() == chattingF.sendB) { // 게임방 page -> 채팅 message 전송
+			pw.println(Data.CHATTINGSENDMESSAGE + "|" + chattingF.field.getText());
 			pw.flush();
 			chattingF.field.setText("");
-			
+
 		} else if (e.getSource() == chattingF.openB) // 게임방 page -> 내 컴터 파일 열기
 		{
 			chattingF.openDialog();
@@ -336,6 +341,27 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 			pw.flush();
 		}
 	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			RoomF.sendB.doClick();
+			chattingF.sendB.doClick();
+		} 
+		
+		}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+	
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+	}
+
+	
 
 //	}
 
@@ -564,7 +590,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 			} catch (IOException io) {
 				io.printStackTrace();
 			}
-
 		} // while
 	}
+
 }

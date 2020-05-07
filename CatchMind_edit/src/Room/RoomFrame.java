@@ -103,6 +103,7 @@ public class RoomFrame extends JFrame {
 
 		chattxt = new JTextField(30);
 		sendB = new JButton("º¸³»±â");
+		sendB.setActionCommand("º¸³»±â");
 
 		chatP1.add(chattxt);
 		chatP1.add(sendB);
@@ -133,7 +134,7 @@ public class RoomFrame extends JFrame {
 		list2P.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
 		la3 = new JLabel("·© Å·");
-		la3.setFont(new Font("µ¸¿ò", Font.PLAIN, 15));
+		la3.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 		frlist = new JList<String>(new DefaultListModel<String>());
 		JScrollPane scroll2 = new JScrollPane(frlist);
 		scroll2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -170,7 +171,8 @@ public class RoomFrame extends JFrame {
 			dp[i] = new DetailPanel(br, pw);
 			centerPanel.add(dp[i]);
 		}
-
+		
 	}
+	
 
 }
