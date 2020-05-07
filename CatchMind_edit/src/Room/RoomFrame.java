@@ -1,21 +1,17 @@
 package Room;
-// ´ë±â¹æ FRAME
+// ëŒ€ê¸°ë°© FRAME
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -25,9 +21,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-import Chatting.CoprocessFrame;
-import Room.RoomMake;
-
 public class RoomFrame extends JFrame {
 	public JButton makeB, exitB, sendB, enterB;
 //	private JComboBox<String> sortCB;
@@ -36,7 +29,7 @@ public class RoomFrame extends JFrame {
 	public JTextArea chatarea, usertxt;
 	public JTextField chattxt, tx1, tx2, tx3, tx4, tx5, tx6, tx7, tx8;
 	private JLabel la1, la2, la3, la4, la5, la6;
-//	private String[] com = { "°æ¿µÁö¿ø", "¸¶ÄÉÆÃ", "°í°´°ü¸®", "°³¹ß", "µğÀÚÀÎ" };
+//	private String[] com = { "ê²½ì˜ì§€ì›", "ë§ˆì¼€íŒ…", "ê³ ê°ê´€ë¦¬", "ê°œë°œ", "ë””ìì¸" };
 	private JList<String> entlist, frlist;
 	private EtchedBorder eb;
 	private JList<DetailPanel> list;
@@ -53,33 +46,33 @@ public class RoomFrame extends JFrame {
 		this.br = br;
 		this.pw = pw;
 
-		// »ó´Ü ¹öÆ°
-		dp = new DetailPanel[100]; // ¹æ Á¤º¸ 
+		// ìƒë‹¨ ë²„íŠ¼
+		dp = new DetailPanel[100]; // ë°© ì •ë³´ 
 		upP = new JPanel(new FlowLayout());
-		// ¹æ ¸¸µé±â
-		makeB = new JButton("¹æ ¸¸ µé ±â");
+		// ë°© ë§Œë“¤ê¸°
+		makeB = new JButton("ë°© ë§Œ ë“¤ ê¸°");
 		makeB.setPreferredSize(new Dimension(400, 30));
-		// ¹æ ³ª°¡±â 
-		exitB = new JButton("·Î ±× ¾Æ ¿ô");
+		// ë°© ë‚˜ê°€ê¸° 
+		exitB = new JButton("ë¡œ ê·¸ ì•„ ì›ƒ");
 		exitB.setPreferredSize(new Dimension(200, 30));
 
-		upP.add(makeB); // ¹æ ¸¸µé±â ¹öÆ° »ı¼º
-		upP.add(exitB); // ¹æ ³ª°¡±â ¹öÆ° »ı¼º 
+		upP.add(makeB); // ë°© ë§Œë“¤ê¸° ë²„íŠ¼ ìƒì„±
+		upP.add(exitB); // ë°© ë‚˜ê°€ê¸° ë²„íŠ¼ ìƒì„± 
 
 		
-		// °ÔÀÓ¹æ ¸®½ºÆ®
+		// ê²Œì„ë°© ë¦¬ìŠ¤íŠ¸
 		roomP = new JPanel(new BorderLayout());
-		la4 = new JLabel("°ÔÀÓ ROOM ¸®½ºÆ®");
-		la4.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 20));
+		la4 = new JLabel("ê²Œì„ ROOM ë¦¬ìŠ¤íŠ¸");
+		la4.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 20));
 
-		centerPanel = new JPanel(new GridLayout(100, 2, 10, 10)); // 100°³
+		centerPanel = new JPanel(new GridLayout(100, 2, 10, 10)); // 100ê°œ
 		for (int i = 0; i < 100; i++) {
 			dp[i] = new DetailPanel(br, pw);
 			centerPanel.add(dp[i]);
 		}
 		
 		JScrollPane scrollRoomList = new JScrollPane(centerPanel);
-		scrollRoomList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollRoomList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollRoomList.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollRoomList.getVerticalScrollBar().setValue(scrollRoomList.getVerticalScrollBar().getMaximum());
 		
@@ -87,10 +80,10 @@ public class RoomFrame extends JFrame {
 		roomP.add("North", la4);
 
 		
-		// ´ë±âÀÚ Ã¤ÆÃ
+		// ëŒ€ê¸°ì ì±„íŒ…
 		chatP = new JPanel(new BorderLayout());
-		la1 = new JLabel("´ë±âÀÚ Ã¤ÆÃ¹æ ");
-		la1.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+		la1 = new JLabel("ëŒ€ê¸°ì ì±„íŒ…ë°© ");
+		la1.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 15));
 		chatarea = new JTextArea();
 		chatarea.setEditable(false);
 		JScrollPane scroll = new JScrollPane(chatarea);
@@ -99,11 +92,10 @@ public class RoomFrame extends JFrame {
 		scroll.setPreferredSize(new Dimension(400, 250));
 		scroll.getVerticalScrollBar().setValue(scrollRoomList.getVerticalScrollBar().getMaximum());
 		
-		chatP1 = new JPanel(new FlowLayout(FlowLayout.LEFT)); // ´ë±âÀÚ Ã¤ÆÃ message Ã¢
+		chatP1 = new JPanel(new FlowLayout(FlowLayout.LEFT)); // ëŒ€ê¸°ì ì±„íŒ… message ì°½
 
 		chattxt = new JTextField(30);
-		sendB = new JButton("º¸³»±â");
-		sendB.setActionCommand("º¸³»±â");
+		sendB = new JButton("ë³´ë‚´ê¸°");
 
 		chatP1.add(chattxt);
 		chatP1.add(sendB);
@@ -113,12 +105,12 @@ public class RoomFrame extends JFrame {
 		chatP.add("North", la1);
 
 		
-		// ´ë±âÀÚ ¸ñ·Ï
+		// ëŒ€ê¸°ì ëª©ë¡
 		listP = new JPanel(new GridLayout(2, 1, 20, 20));
 
 		list1P = new JPanel(new BorderLayout());
-		la2 = new JLabel(" ´ë±â½Ç ÀÎ¿ø  ");
-		la2.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+		la2 = new JLabel(" ëŒ€ê¸°ì‹¤ ì¸ì›  ");
+		la2.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 15));
 
 		usertxt = new JTextArea();
 		usertxt.setEditable(false);
@@ -133,8 +125,8 @@ public class RoomFrame extends JFrame {
 		list2P = new JPanel(new BorderLayout());
 		list2P.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
-		la3 = new JLabel("·© Å·");
-		la3.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+		la3 = new JLabel("ë­ í‚¹");
+		la3.setFont(new Font("ë§‘ì€ê³ ë”•", Font.PLAIN, 15));
 		frlist = new JList<String>(new DefaultListModel<String>());
 		JScrollPane scroll2 = new JScrollPane(frlist);
 		scroll2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -146,13 +138,13 @@ public class RoomFrame extends JFrame {
 		listP.add(list2P);
 		listP.add(list1P);
 
-		// ´ë±âÀÚ¸ñ·Ï +´ë±âÀÚÃ¤ÆÃ
+		// ëŒ€ê¸°ìëª©ë¡ +ëŒ€ê¸°ìì±„íŒ…
 		sumP = new JPanel(new BorderLayout());
 
 		sumP.add("Center", listP);
 		sumP.add("South", chatP);
 
-		// Á¾ÇÕ
+		// ì¢…í•©
 		Container contentPane = this.getContentPane();
 		contentPane.add("East", sumP);
 		contentPane.add("North", upP);
@@ -162,7 +154,7 @@ public class RoomFrame extends JFrame {
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 
-	}// »ı¼ºÀÚ
+	}// ìƒì„±ì
 
 	public void containPanelClear() {
 
@@ -171,8 +163,7 @@ public class RoomFrame extends JFrame {
 			dp[i] = new DetailPanel(br, pw);
 			centerPanel.add(dp[i]);
 		}
-		
+
 	}
-	
 
 }

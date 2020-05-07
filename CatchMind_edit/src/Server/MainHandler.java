@@ -1,13 +1,9 @@
 package Server;
-// Data 프로토콜 연결
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -33,7 +29,6 @@ public class MainHandler extends Thread {
 	private ArrayList<Room> roomtotalList; // 전체 방 리스트
 
 	private Room priRoom; // 사용자가 있는 방
-//	private String fileName;
 
 	// 소켓, 전체사용자,대기방,방리스트,JDBC
 	public MainHandler(Socket socket, ArrayList<MainHandler> allUserList, ArrayList<MainHandler> waitUserList,
@@ -49,12 +44,11 @@ public class MainHandler extends Thread {
 		br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-//		this.fileName = "";
 	}
 
 	@Override
 	public void run() {
-		// 데이터 입력받음 데이터파싱 -> 결과 실행해줘야함
+		// 데이터 입력받음 데이터파싱 -> 결과 실행
 		try {
 			String[] line = null;
 			while (true) {
@@ -102,45 +96,6 @@ public class MainHandler extends Thread {
 						pw.flush();
 					}
 
-//				} else if (line[0].compareTo(Data.IDSEARCH) == 0) { // ID 찾기
-//				
-//					System.out.println("ID찾기");
-//					String userContent[] = line[1].split("%");
-//
-//					System.out.println(userContent[0]);
-//					System.out.println(userContent[1]);
-//					System.out.println(userContent[2]);
-//					System.out.println(userContent[3]);
-//
-//					String sql = "select * from UserContent where (NAME = '" + userContent[0] + "' and age = '"
-//							+ userContent[1] + "' and email ='" + userContent[2] + "' and phoneNumber1 = '"
-//							+ userContent[3] + "')";
-//
-//					pstmt = conn.prepareStatement(sql);
-//					ResultSet rs = pstmt.executeQuery(sql);
-//					String name = null;
-//					String id = null;
-//					int count = 0;
-//					while (rs.next()) {
-//						name = rs.getString("NAME");
-//						id = rs.getString("IDNAME");
-//						if (name.compareTo(userContent[0]) == 0) {
-//							count++;
-//						}
-//					}
-//					System.out.println(count);
-//
-//					if (count == 0) // ID가 없음
-//					{
-//						pw.println(Data.IDSEARCH_NO + "|" + "등록된 아이디가 없습니다.");
-//						pw.flush();
-//					} else { // 기존에ID 찾음
-//						StringBuffer stb = new StringBuffer(id);
-//						stb.replace(stb.length() - 4, stb.length() - 1, "***");
-//						pw.println(Data.IDSEARCH_OK + "|" + "ID : " + stb.toString());
-//						pw.flush();
-//					}
-
 				} else if (line[0].compareTo(Data.ENTERLOGIN) == 0) { // [로그인]
 
 					boolean con = true; // 기존에 로그인이 됐는지 안됐는지 확인
@@ -154,10 +109,8 @@ public class MainHandler extends Thread {
 							con = false;
 						}
 					}
+					
 					if (con) {
-//						String sql = "select * from UserContent where (IDNAME = '" + userContent[0] + "' and PASSWORD = '"
-//						+ userContent[1] + "')";
-
 						String sql = "select * from UserContent where (IDNAME = '" + userContent[0]
 								+ "' and password = '" + userContent[1] + "')";
 
@@ -166,7 +119,7 @@ public class MainHandler extends Thread {
 						int count = 0;
 
 						while (rs.next()) {
-							user.setidNumber(rs.getInt("IDNUMBER"));
+							user.setIdNumber(rs.getInt("IDNUMBER"));
 							user.setIdName(rs.getString("IDNAME"));
 							user.setPassword(rs.getString("password"));
 							user.setName(rs.getString("NAME"));
@@ -183,7 +136,7 @@ public class MainHandler extends Thread {
 							user.setName("");
 							user.setIdName("");
 							user.setPassword("");
-							user.setidNumber(0);
+							user.setIdNumber(0);
 
 						} else { // 로그인 되었을때
 							waitUserList.add(this); // 대기방 인원수 추가
@@ -205,7 +158,7 @@ public class MainHandler extends Thread {
 							}
 							System.out.println("[전체 Room 갯수 ]" + roomtotalList.size());
 
-							// RoomtotalList 전체 정보를 Message로 만들어서 보내야된다
+							// RoomtotalList 전체 정보를 Message로 만들어서 보냄
 							String roomListMessage = "";
 
 							for (int i = 0; i < roomtotalList.size(); i++) {
@@ -232,12 +185,12 @@ public class MainHandler extends Thread {
 						pw.flush();
 					}
 
-				} else if (line[0].compareTo(Data.EXITWAITROOM) == 0) { // 대기실방에서 로그인페이지(logout);
+				} else if (line[0].compareTo(Data.EXITWAITROOM) == 0) { // 대기실방에서 로그인 페이지(logout);
 
 					String thisName = waitUserList.get(waitUserList.indexOf(this)).user.getIdName(); // -여기 다시하기
 
 					waitUserList.remove(this); //
-					System.out.println("[대기방 인원수] :" + waitUserList.size());
+					System.out.println("[대기방 인원] :" + waitUserList.size());
 
 					String userline = "";
 					for (int i = 0; i < waitUserList.size(); i++) {
@@ -253,18 +206,14 @@ public class MainHandler extends Thread {
 					}
 					user.setName("");
 					user.setIdName("");
-//					user.setAge("");
 					user.setPassword("");
-					user.setidNumber(0);
-//					user.setPhoneNumber("");
-//					user.setEmail("");
+					user.setIdNumber(0);
 
-				} else if (line[0].compareTo(Data.SENDMESSAGE) == 0) { // 대기실방에서 메세지보내기
+				} else if (line[0].compareTo(Data.SENDMESSAGE) == 0) { // 대기실에서 메세지 보내기
 
 					for (int i = 0; i < waitUserList.size(); i++) {
-						waitUserList.get(i).pw.println(Data.SENDMESSAGE_ACK + "|" + user.getIdName() + " |" + line[1]);// 대기방에
-																														// Message
-																														// 전송;
+						waitUserList.get(i).pw.println(Data.SENDMESSAGE_ACK + "|" + user.getIdName() + " |" + line[1]);
+						// 대기방에 message 전송
 						waitUserList.get(i).pw.flush();
 					}
 
@@ -283,40 +232,11 @@ public class MainHandler extends Thread {
 					tempRoom.setUserCount(userContent[1]);
 					tempRoom.setMasterName(user.getIdName());
 
-					sql = "select * from Room where title = '" + userContent[0] + "' and  userCount= '" + userContent[1]
-							+ "' and  admin= '" + user.getIdName() + "'";
-
-//					if (userContent.length == 5) { // 비공개방
-//						sql = "Insert into Room values(num.nextval,?,?,?,?,?,?)";
-//						pstmt = conn.prepareStatement(sql);
-//
-//						pstmt.setString(1, userContent[0]); // title
-//						pstmt.setString(2, userContent[1]); // password
-//						pstmt.setString(3, userContent[2]); // count
-//						pstmt.setString(4, user.getIdName()); // 방장이름
-//						pstmt.setString(5, userContent[3]); // 주제
-//						pstmt.setString(6, userContent[4]); // condition 1
-//
-//						tempRoom.setTitle(userContent[0]);
-//						tempRoom.setrPassword(userContent[1]);
-//						tempRoom.setUserCount(userContent[2]);
-//						tempRoom.setMasterName(user.getIdName());
-//						tempRoom.setSubject(userContent[3]);
-//						tempRoom.setCondtionP(Integer.parseInt(userContent[4]));
-//
-//						sql = "select * from Room where title = '" + userContent[0] + "' and password = '"
-//								+ userContent[1] + "' and  userCount= '" + userContent[2] + "' and  admin= '"
-//								+ user.getIdName() + "' and  subject= '" + userContent[3] + "'";
-
-					// 공개방
-//						sql = "Insert into Room values(num.nextval,?,?,?)";
-
-//						sql = "select * from Room where title = '" + userContent[0] + "' and  userCount= '"
-//								+ userContent[1] + "' and  admin= '" + user.getIdName() + "' and  subject= '"
-//								+ userContent[2] + "'";
+					sql = "select * from Room where title = '" + userContent[0] + "' and  userCount = '" + userContent[1]
+							+ "' and  admin = '" + user.getIdName() + "'";
 
 					int su = pstmt.executeUpdate(); // 항상 몇개를 실행(CRUD)한지 갯수를 return
-					System.out.println(su + "Room 만듬[DB]");
+					System.out.println(su + "Room 생성 [DB]");
 
 					pstmt = conn.prepareStatement(sql);
 					ResultSet rs = pstmt.executeQuery(sql);
@@ -338,11 +258,11 @@ public class MainHandler extends Thread {
 
 					System.out.println("[Room 정보]");
 					for (Room room : roomtotalList) {
-						System.out.println(room.toString() + "현재방에 인원수 : " + room.roomInUserList.size());
+						System.out.println(room.toString() + "현재 방의 인원 : " + room.roomInUserList.size());
 					}
 					System.out.println("[전체 Room 갯수 ]" + roomtotalList.size());
 
-					// RoomtotalList 전체 정보를 Message로 만들어서 보내야된다
+					// RoomtotalList 전체 정보를 Message로 만들어서 보냄 
 					String roomListMessage = "";
 
 					for (int i = 0; i < roomtotalList.size(); i++) {
@@ -379,19 +299,19 @@ public class MainHandler extends Thread {
 						waitUserList.get(i).pw.flush();
 					}
 
-					String path = "C:\\eclipse\\WorkSpace\\CooProject\\roomFolder\\" + priNumber;
-					File folder = new File(path);
-
-					if (folder.exists()) {
-						try {
-							System.out.println("폴더가 이미 존재합니다.");
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}
-					} else if (!folder.exists()) {
-						folder.mkdir();
-						System.out.println("폴더가 생성되었습니다.");
-					}
+//					String path = "C:\\eclipse\\WorkSpace\\CooProject\\roomFolder\\" + priNumber;
+//					File folder = new File(path);
+//
+//					if (folder.exists()) {
+//						try {
+//							System.out.println("폴더가 이미 존재합니다.");
+//						} catch (Exception e1) {
+//							e1.printStackTrace();
+//						}
+//					} else if (!folder.exists()) {
+//						folder.mkdir();
+//						System.out.println("폴더가 생성되었습니다.");
+//					}
 
 				} else if (line[0].compareTo(Data.ENTERROOM) == 0) { // [방 입장버튼]
 
@@ -514,7 +434,7 @@ public class MainHandler extends Thread {
 							roomMember += (roomtotalList.get(roomIndex).roomInUserList.get(i).user.getIdName() + "%");
 						}
 
-						System.out.println("특정방에 사람수 : " + roomtotalList.get(roomIndex).roomInUserList.size());
+						System.out.println("특정 방의 인원 수 : " + roomtotalList.get(roomIndex).roomInUserList.size());
 						System.out.println(roomMember);
 						for (int i = 0; i < roomtotalList.get(roomIndex).roomInUserList.size(); i++) {
 							roomtotalList.get(roomIndex).roomInUserList.get(i).pw.println(Data.ENTERROOM_USERLISTSEND

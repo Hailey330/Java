@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="WorkbenchPreferenceDialogSettings">
-		<item key="DIALOG_X_ORIGIN" value="496"/>
-		<item key="DIALOG_Y_ORIGIN" value="226"/>
+		<item key="DIALOG_X_ORIGIN" value="220"/>
+		<item key="DIALOG_Y_ORIGIN" value="210"/>
 	</section>
 	<section name="org.eclipse.ui.preferences.keysPreferencePage">
 		<item key="actionSetFilter" value="true"/>
@@ -17,5 +17,7 @@
 			<item value="org.eclipse.wb"/>
 			<item value="org.eclipse.wb/org.eclipse.wb.swing"/>
 		</list>
+	</section>
+	<section name="ImportExportAction">
 	</section>
 </section>

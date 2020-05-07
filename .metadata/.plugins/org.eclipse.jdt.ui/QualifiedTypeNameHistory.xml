@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="java.sql.Date"/>
-<fullyQualifiedTypeName name="java.sql.Timestamp"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="java.time.LocalDate"/>
 <fullyQualifiedTypeName name="java.time.LocalTime"/>
 <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
@@ -60,4 +55,9 @@
 <fullyQualifiedTypeName name="models.Room"/>
 <fullyQualifiedTypeName name="chatting.MainServer"/>
 <fullyQualifiedTypeName name="java.net.ProtocolException"/>
+<fullyQualifiedTypeName name="net.nurigo.java_sdk.api.SenderID"/>
+<fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
+<fullyQualifiedTypeName name="javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler"/>
+<fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
+<fullyQualifiedTypeName name="Server.Data"/>
 </qualifiedTypeNameHistroy>

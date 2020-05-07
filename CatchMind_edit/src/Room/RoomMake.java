@@ -1,5 +1,5 @@
 package Room;
-// ¹æ ¸¸µé±â FRAME
+// ë°© ë§Œë“¤ê¸° FRAME
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -14,58 +14,36 @@ import javax.swing.JTextField;
 
 public class RoomMake extends JFrame {
 
-	private JLabel title, subject, pw, num;
-	public JTextField tf, pf;
-	public JCheckBox cb;
+	private JLabel title, num;
+	public JTextField tf;
 	public JButton makeB, canB;
-	public JComboBox<String> combo, combo1;
+	public JComboBox<String> combo1;
 
 	public RoomMake() {
 
-		title = new JLabel("¹æÁ¦¸ñ :");
-//		subject = new JLabel("¹æÁÖÁ¦ :");
-//		pw = new JLabel("ºñ¹Ğ¹øÈ£ :");
-		num = new JLabel("ÀÎ¿ø¼ö :");
+		title = new JLabel("ë°© ì œëª© : ");
+		num = new JLabel("ì¸ì› ìˆ˜ : ");
 
 		tf = new JTextField(15);
-//		pf = new JTextField(15);
 
-//		String[] com = { "°æ¿µ", "¸¶ÄÉÆÃ", "°í°´°ü¸®", "°³¹ß", "µğÀÚÀÎ" };
-//		combo = new JComboBox<String>(com);
-
-//		cb = new JCheckBox();
-
-		String[] com1 = { "2", "3", "4", "5", "6", "7", "8", "9", };
+		String[] com1 = {"2", "3", "4", "5", "6", "7", "8"}; // ìµœëŒ€ 8ëª… ì…ì¥
 		combo1 = new JComboBox<String>(com1);
 
-		makeB = new JButton("¸¸µé±â");
-		canB = new JButton("Ãë ¼Ò");
+		makeB = new JButton("ë§Œë“¤ê¸°");
+		canB = new JButton("ì·¨ ì†Œ");
 
-		// ¹æ Á¦¸ñ
+		// ë°© ì œëª©
 		JPanel panel1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panel1.add(title);
 		panel1.add(tf);
 
-		// ºñ¹Ğ¹øÈ£ 
-//		JPanel panel2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-//		panel2.add(pw);
-//		panel2.add(pf);
-//		panel2.add(cb);
-
-		// ¹æ ÁÖÁ¦ 
-//		JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-//		panel3.add(subject);
-//		panel3.add(combo);
-
-		// ¹æ ÀÎ¿ø ¼ö 
+		// ë°© ì¸ì› ìˆ˜ 
 		JPanel panel4 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panel4.add(num);
 		panel4.add(combo1);
 
 		JPanel totpanel = new JPanel(new GridLayout(4, 1, 0, 0));
 		totpanel.add(panel1);
-//		totpanel.add(panel2);
-//		totpanel.add(panel3);
 		totpanel.add(panel4);
 
 		JPanel btpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

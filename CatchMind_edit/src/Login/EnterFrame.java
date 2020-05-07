@@ -7,12 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -26,16 +22,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import Server.Data;
-import net.nurigo.java_sdk.api.SenderID;
-import Chatting.CoprocessFrame;
+import Chatting.GameFrame;
 import Room.RoomFrame;
 import Room.RoomMake;
+import Server.Data;
 
-public class EnterFrame extends JFrame implements ActionListener, Runnable, ListSelectionListener, KeyListener {
+public class EnterFrame extends JFrame implements ActionListener, KeyListener, Runnable {
 	private JPasswordField pwT;
 	private JTextField idT;// , pwT;
 	private JButton idB, pwB, accessB, membershipB;
@@ -45,14 +38,12 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 	private BufferedReader br;
 	private PrintWriter pw;
 
-	MembershipB membershipF; // È¸¿ø°¡ÀÔ
-	RoomFrame RoomF; // ´ë±â½Ç
-	RoomMake rMakeF; // ¹æ¸¸µé±â
-	CoprocessFrame chattingF;
+	MembershipB membershipF; // íšŒì›ê°€ì…
+	RoomFrame RoomF; // ëŒ€ê¸°ì‹¤
+	RoomMake rMakeF; // ë°©ë§Œë“¤ê¸°
+	GameFrame chattingF;
 
-//	private String sNumber = "><^^"; // default ½ÃÅ©¸´³Ñ¹ö
-//	private boolean condition_S = false; // ÀÌ¸ŞÀÏ ÀÎÁõÈ®ÀÎ
-	private boolean condition_Id = false; // ID Áßº¹Ã¼Å©
+	private boolean condition_Id = false; // ID ì¤‘ë³µì²´í¬
 
 	public EnterFrame() {
 
@@ -61,11 +52,11 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 		membershipF = new MembershipB();
 		RoomF = new RoomFrame(br, pw);
 		rMakeF = new RoomMake();
-		chattingF = new CoprocessFrame();
+		chattingF = new GameFrame();
 
-		idB = new JButton("¾ÆÀÌµğ");
+		idB = new JButton("ì•„ì´ë””");
 		idT = new JTextField(15);
-		pwB = new JButton("ÆĞ½º¿öµå");
+		pwB = new JButton("íŒ¨ìŠ¤ì›Œë“œ");
 		pwT = new JPasswordField(15);
 		pwT.setEchoChar('*');
 
@@ -75,8 +66,8 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 		p2.add(pwB);
 		p2.add(pwT);
 
-		membershipB = new JButton("È¸¿ø°¡ÀÔ");
-		accessB = new JButton("ÀÔÀå");
+		membershipB = new JButton("íšŒì›ê°€ì…");
+		accessB = new JButton("ì…ì¥");
 
 		JPanel p3 = new JPanel();
 		p3.add(membershipB);
@@ -96,61 +87,59 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 		setVisible(true);
 		setResizable(false);
 		setBounds(400, 200, 1000, 800);
-//		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		event();
 
 	}
 
 	public void event() {
-		// -------------------- È¸¿ø°¡ÀÔ --------------------------------
-		membershipB.addActionListener(this); // È¸¿ø°¡ÀÔ(¹öÆ°)
-		membershipF.calneB.addActionListener(this); // È¸¿ø°¡ÀÔ Ãë¼Ò(·Î±×ÀÎ È­¸éÀ¸·Î)
-		membershipF.joinB.addActionListener(this); // È¸¿ø°¡ÀÔ È­¸é¿¡¼­ join
-		membershipF.idoverlapB.addActionListener(this);// È¸¿ø°¡ÀÔ È­¸é Áßº¹È®ÀÎ
+		// -------------------- íšŒì›ê°€ì… --------------------------------
+		membershipB.addActionListener(this); // íšŒì›ê°€ì…(ë²„íŠ¼)
+		membershipF.calneB.addActionListener(this); // íšŒì›ê°€ì… ì·¨ì†Œ(ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ)
+		membershipF.joinB.addActionListener(this); // íšŒì›ê°€ì… í™”ë©´ì—ì„œ join
+		membershipF.idoverlapB.addActionListener(this);// íšŒì›ê°€ì… í™”ë©´ ì¤‘ë³µí™•ì¸
 
-		// -------------------- ·Î±×ÀÎ ----------------------------------
-		accessB.addActionListener(this); // ÀÔÀå(Login)
-		RoomF.exitB.addActionListener(this); // Room -> ·Î±×ÀÎPage
+		// -------------------- ë¡œê·¸ì¸ ----------------------------------
+		accessB.addActionListener(this); // ì…ì¥(Login)
+		RoomF.exitB.addActionListener(this); // Room -> ë¡œê·¸ì¸Page
 
-		// --------------------- ¸Ş¼¼Áö ---------------------------------
-		RoomF.sendB.addActionListener(this); // ´ë±â¹æ¿¡¼­ Àü¼Û
-		RoomF.chattxt.addKeyListener(this); // ¿£ÅÍÄ¡¸é Àü¼Û
+		// --------------------- ë©”ì„¸ì§€ ---------------------------------
+		RoomF.sendB.addActionListener(this); // ëŒ€ê¸°ë°©ì—ì„œ ì „ì†¡
+		RoomF.chattxt.addKeyListener(this); // ì—”í„°ì¹˜ë©´ ì „ì†¡
 
-		// ---------------------- ´ë±â¹æ --------------------------------
+		// ---------------------- ëŒ€ê¸°ë°© --------------------------------
 		RoomF.makeB.addActionListener(this);
 		rMakeF.makeB.addActionListener(this);
 		rMakeF.canB.addActionListener(this);
 		chattingF.exitB.addActionListener(this);
 		chattingF.sendB.addActionListener(this);
-		// ---------------------- Ã¤ÆÃ¹æ --------------------------------
+		// ---------------------- ì±„íŒ…ë°© --------------------------------
 		chattingF.openB.addActionListener(this);
 		chattingF.saveB.addActionListener(this);
 		chattingF.loadB.addActionListener(this);
-		chattingF.list2.addListSelectionListener(this);
-		chattingF.field.addKeyListener(this); // ¿£ÅÍÄ¡¸é Àü¼Û
+		chattingF.field.addKeyListener(this); // ì—”í„°ì¹˜ë©´ ì „ì†¡
 
 	}
 
 	public void network() {
 
-		// ¼ÒÄÏ »ı¼º
+		// ì†Œì¼“ ìƒì„±
 		try {
-			socket = new Socket("localhost", 9500);
+			socket = new Socket("192.168.0.61", 9500);
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 		} catch (UnknownHostException e) {
-			System.out.println("¼­¹ö¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+			System.out.println("ì„œë²„ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 			e.printStackTrace();
 			System.exit(0);
 		} catch (IOException e) {
-			System.out.println("¼­¹ö¿Í ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+			System.out.println("ì„œë²„ì™€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 			e.printStackTrace();
 			System.exit(0);
 		}
 
-		// ½º·¹µå »ı¼º
+		// ìŠ¤ë ˆë“œ ìƒì„±
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -158,21 +147,21 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == membershipB) { // ¸ŞÀÎ page -> È¸¿ø°¡ÀÔ ¹öÆ°
+		if (e.getSource() == membershipB) { // ë©”ì¸ page -> íšŒì›ê°€ì… ë²„íŠ¼
 			this.setVisible(false);
 			membershipF.setVisible(true);
 
-		} else if (e.getSource() == membershipF.joinB) { // È¸¿ø°¡ÀÔ page -> °¡ÀÔ ¹öÆ°
+		} else if (e.getSource() == membershipF.joinB) { // íšŒì›ê°€ì… page -> ê°€ì… ë²„íŠ¼
 
 			String name = membershipF.nameT.getText();
 			String id = membershipF.idT.getText();
 			String pw1 = membershipF.pwT.getText();
 
 			if (name.length() == 0 || id.length() == 0 || pw1.length() == 0) {
-				JOptionPane.showMessageDialog(this, "ºó Ä­À» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				JOptionPane.showMessageDialog(this, "ë¹ˆ ì¹¸ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 
-			} else if (condition_Id == false) { // ¾ÆÀÌµğ Áßº¹ È®ÀÎ
-				JOptionPane.showMessageDialog(this, "ID Áßº¹ È®ÀÎÇØÁÖ¼¼¿ä.");
+			} else if (condition_Id == false) { // ì•„ì´ë”” ì¤‘ë³µ í™•ì¸
+				JOptionPane.showMessageDialog(this, "ID ì¤‘ë³µ í™•ì¸í•´ì£¼ì„¸ìš”.");
 
 			} else {
 				String line = "";
@@ -182,7 +171,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 
 				pw.println(Data.REGISTER + "|" + line);
 				pw.flush();
-				JOptionPane.showMessageDialog(this, "È¸¿ø °¡ÀÔ ¿Ï·á!");
+				JOptionPane.showMessageDialog(this, "íšŒì› ê°€ì… ì™„ë£Œ!");
 				membershipF.setVisible(false);
 				this.setVisible(true);
 
@@ -193,27 +182,27 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 				condition_Id = false;
 			}
 
-		} else if (e.getSource() == membershipF.calneB) { // È¸¿ø°¡ÀÔ page -> Ãë¼Ò ¹öÆ°
+		} else if (e.getSource() == membershipF.calneB) { // íšŒì›ê°€ì… page -> ì·¨ì†Œ ë²„íŠ¼
 			membershipF.setVisible(false);
 			this.setVisible(true);
 			condition_Id = false;
 
-		} else if (e.getSource() == membershipF.idoverlapB) { // È¸¿ø°¡ÀÔ ÆäÀÌÁöID -> Áßº¹ È®ÀÎ
+		} else if (e.getSource() == membershipF.idoverlapB) { // íšŒì›ê°€ì… í˜ì´ì§€ID -> ì¤‘ë³µ í™•ì¸
 
 			if (membershipF.idT.getText().length() == 0) {
-				JOptionPane.showMessageDialog(this, "¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
+				JOptionPane.showMessageDialog(this, "ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
 			} else {
 				pw.println(Data.IDSEARCHCHECK + "|" + membershipF.idT.getText());
 				pw.flush();
 			}
 
-		} else if (e.getSource() == accessB) { // ¸ŞÀÎ page -> ´ë±â½Ç (Login)
+		} else if (e.getSource() == accessB) { // ë©”ì¸ page -> ëŒ€ê¸°ì‹¤ (Login)
 
 			String id1 = idT.getText();
 			String pwss = pwT.getText();
 
 			if (id1.length() == 0 || pwss.length() == 0) {
-				JOptionPane.showMessageDialog(this, "¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				JOptionPane.showMessageDialog(this, "ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			} else {
 				String line = id1 + "%" + pwss;
 				pw.println(Data.ENTERLOGIN + "|" + line);
@@ -222,11 +211,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 			idT.setText("");
 			pwT.setText("");
 
-//		} else if (e.getSource() == searchpwF.cancleB) { // PWÃ£±âÆäÀÌÁö -->PW Ã£±â Ãë¼Ò
-//			searchpwF.setVisible(false);
-//			this.setVisible(true);
-
-		} else if (e.getSource() == RoomF.exitB) { // ´ë±â½Ç page -> ·Î±×ÀÎ page (·Î±×¾Æ¿ô)
+		} else if (e.getSource() == RoomF.exitB) { // ëŒ€ê¸°ì‹¤ page -> ë¡œê·¸ì¸ page (ë¡œê·¸ì•„ì›ƒ)
 
 			RoomF.setVisible(false);
 			this.setVisible(true);
@@ -234,7 +219,7 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 			pw.println(Data.EXITWAITROOM + "|" + "message");
 			pw.flush();
 
-		} else if (e.getSource() == RoomF.sendB) { // ´ë±â½Ç page -> Ã¤ÆÃ messgae Àü¼Û
+		} else if (e.getSource() == RoomF.sendB) { // ëŒ€ê¸°ì‹¤ page -> ì±„íŒ… messgae ì „ì†¡
 
 			String line = RoomF.chattxt.getText();
 			if (RoomF.chattxt.getText().length() != 0) {
@@ -243,67 +228,35 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 				RoomF.chattxt.setText("");
 			}
 
-		} else if (e.getSource() == RoomF.makeB) { // ´ë±â½Ç page -> ¹æ ¸¸µé±â ¹öÆ°
+		} else if (e.getSource() == RoomF.makeB) { // ëŒ€ê¸°ì‹¤ page -> ë°© ë§Œë“¤ê¸° ë²„íŠ¼
 			RoomF.setVisible(false);
 			rMakeF.setVisible(true);
 
-		} else if (e.getSource() == rMakeF.makeB) { // ¹æ ¸¸µé±â page -> ¹æ ¸¸µé±â ¹öÆ°
+		} else if (e.getSource() == rMakeF.makeB) { // ë°© ë§Œë“¤ê¸° page -> ë°© ë§Œë“¤ê¸° ë²„íŠ¼
 			String title = rMakeF.tf.getText();
-//			String rPassword = rMakeF.pf.getText();
 			String userCount = (String) rMakeF.combo1.getSelectedItem();
-//			String subject = (String) rMakeF.combo.getSelectedItem();
-//			int condition = rMakeF.cb.isSelected() ? 1 : 0;
 
 			if (title.length() == 0) {
-				JOptionPane.showMessageDialog(this, "¹æ Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				JOptionPane.showMessageDialog(this, "ë°© ì œëª©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			} else {
-//				if (condition == 1 && rPassword.length() == 0) // PW¸¦ ¾´´Ù°íÇß³õ°í ¾È³ÖÀ»¶§
-//				{
-//					JOptionPane.showMessageDialog(this, "ºñ¹Ğ¹øÈ£À» ÀÔ·ÂÇØÁÖ¼¼¿ä");
-//				} else if (condition == 1 && rPassword.length() != 0) {// PW¸¦ ¾´´Ù°íÇß³õ°í ³ÖÀº°æ¿ì
-//
-//					String line = "";
-//					line += (title + "%" + rPassword + "%" + userCount + "%" + subject + "%" + condition);
-//					pw.println(Data.ROOMMAKE + "|" + line);
-//					pw.flush();
-
-//					rMakeF.setVisible(false);
-//					RoomF.setVisible(true);
-
-//					rMakeF.tf.setText("");
-//					rMakeF.pf.setText("");
-//					rMakeF.combo1.setSelectedIndex(0);
-//					rMakeF.combo.setSelectedIndex(0);
-//					rMakeF.cb.setSelected(false);
-
-//				} else if (condition == 0 && rPassword.length() != 0) {
-//					JOptionPane.showMessageDialog(this, "ºñ¹Ğ¹øÈ£ »ç¿ëÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.");
-
 				String line = "";
 				line += (title + "%" + userCount);
-//					+ subject + "%" + condition);
 				pw.println(Data.ROOMMAKE + "|" + line);
 				pw.flush();
 
 //					rMakeF.setVisible(false);
 //					RoomF.setVisible(true);
 				rMakeF.tf.setText("");
-//					rMakeF.pf.setText("");
 				rMakeF.combo1.setSelectedIndex(0);
-				rMakeF.combo.setSelectedIndex(0);
-//					rMakeF.cb.setSelected(false);
 			}
 
-		} else if (e.getSource() == rMakeF.canB) { // ¹æ ¸¸µé±â page -> Ãë¼Ò ¹öÆ°
+		} else if (e.getSource() == rMakeF.canB) { // ë°© ë§Œë“¤ê¸° page -> ì·¨ì†Œ ë²„íŠ¼
 			rMakeF.setVisible(false);
 			RoomF.setVisible(true);
 			rMakeF.tf.setText("");
-//			rMakeF.pf.setText("");
 			rMakeF.combo1.setSelectedIndex(0);
-			rMakeF.combo.setSelectedIndex(0);
-//			rMakeF.cb.setSelected(false);
 
-		} else if (e.getSource() == chattingF.exitB) { // °ÔÀÓ¹æ page -> ³ª°¡±â ¹öÆ°
+		} else if (e.getSource() == chattingF.exitB) { // ê²Œì„ë°© page -> ë‚˜ê°€ê¸° ë²„íŠ¼
 
 			chattingF.setVisible(false);
 			RoomF.setVisible(true);
@@ -314,72 +267,41 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 
 			chattingF.partList.setText("asd");
 
-		} else if (e.getSource() == chattingF.sendB) { // °ÔÀÓ¹æ page -> Ã¤ÆÃ message Àü¼Û
+		} else if (e.getSource() == chattingF.sendB) { // ê²Œì„ë°© page -> ì±„íŒ… message ì „ì†¡
 			pw.println(Data.CHATTINGSENDMESSAGE + "|" + chattingF.field.getText());
 			pw.flush();
 			chattingF.field.setText("");
 
-		} else if (e.getSource() == chattingF.openB) // °ÔÀÓ¹æ page -> ³» ÄÄÅÍ ÆÄÀÏ ¿­±â
-		{
-			chattingF.openDialog();
-			chattingF.fileRead();
-
-		} else if (e.getSource() == chattingF.saveB) // Ã¤ÆÃ¹æ¿¡¼­ ------> ³»ÄÄÅÍ ÆÄÀÏÀúÀå
-		{
-			chattingF.fileSave();
-			chattingF.fileWrite();
-//			listUpload();
-			chattingF.openB.setEnabled(true);
-			chattingF.saveB.setEnabled(true);
-			chattingF.loadB.setEnabled(true);
-			chattingF.deleteB.setEnabled(false);
-			chattingF.exitB.setEnabled(true);
-
-		} else if (e.getSource() == chattingF.loadB) {
-			chattingF.openDialog();
-			pw.println(Data.CHATTINGFILESEND_SYN + "|" + chattingF.file.getName());
-			pw.flush();
 		}
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			RoomF.sendB.doClick();
-			chattingF.sendB.doClick();
-		} 
-		
-		}
-	
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
-	
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
-	}
-
-	
-
-//	}
-
-	@Override
-	public void valueChanged(ListSelectionEvent arg0) {
-		System.out.println("Listlistioner");
-		for (int i = 0; i < chattingF.model.getSize(); i++) {
-			if (chattingF.list2.isSelectedIndex(i)) {
-				chattingF.fileSave();
-				pw.println(Data.CHATTINGFILEDOWNLOAD_SYN + "|" + chattingF.list2.getSelectedValue());
-				pw.flush();
+			if (RoomF.chattxt.getText().length() != 0) {
+				RoomF.sendB.doClick();
+			} else if (chattingF.field.getText().length() != 0) {
+				chattingF.sendB.doClick();
 			}
 		}
 	}
 
 	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void run() {
-		// ¹Ş´ÂÂÊ
+		// ë°›ëŠ” ìª½
 		String line[] = null;
 		while (true) {
 			try {
@@ -390,28 +312,16 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 					socket.close();
 
 					System.exit(0);
-				} else if (line[0].compareTo(Data.IDSEARCHCHECK_OK) == 0) { // È¸¿ø°¡ÀÔ ID Áßº¹ ¾ÈµÊ
-					JOptionPane.showMessageDialog(this, "»ç¿ë°¡´É");
+
+				} else if (line[0].compareTo(Data.IDSEARCHCHECK_OK) == 0) { // íšŒì›ê°€ì… ID ì¤‘ë³µ ì•ˆë¨
+					JOptionPane.showMessageDialog(this, "ì‚¬ìš©ê°€ëŠ¥");
 					condition_Id = true;
-				} else if (line[0].compareTo(Data.IDSEARCHCHECK_NO) == 0) { // È¸¿ø°¡ÀÔ ID Áßº¹ µÊ
-					JOptionPane.showMessageDialog(this, "»ç¿ë ºÒ°¡´É");
+				} else if (line[0].compareTo(Data.IDSEARCHCHECK_NO) == 0) { // íšŒì›ê°€ì… ID ì¤‘ë³µ ë¨
+					JOptionPane.showMessageDialog(this, "ì‚¬ìš© ë¶ˆê°€ëŠ¥");
 					condition_Id = false;
-				}
 
-//				else if (line[0].compareTo(Data.IDSEARCH_OK) == 0) // ID Ã£±â ±âÁ¸¿¡ ÀÖÀ½
-//				{
-//					JOptionPane.showMessageDialog(this, line[1]);
-//					searchF.setVisible(false);
-//					this.setVisible(true);
-//				} else if (line[0].compareTo(Data.IDSEARCH_NO) == 0) // ID°¡ ¾øÀ½
-//				{
-//					JOptionPane.showMessageDialog(this, line[1]);
-//					searchF.setVisible(false);
-//					this.setVisible(true);
-//				}
+				} else if (line[0].compareTo(Data.ENTERLOGIN_OK) == 0) { // ë¡œê·¸ì¸ ì„±ê³µ
 
-				else if (line[0].compareTo(Data.ENTERLOGIN_OK) == 0) // ·Î±×ÀÎ ¼º°ø
-				{
 					this.setVisible(false);
 					RoomF.setVisible(true);
 					RoomF.chatarea.append(line[1] + line[2] + '\n');
@@ -423,12 +333,13 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 					}
 					RoomF.usertxt.setText(userlist);
 
-				} else if (line[0].compareTo(Data.ENTERLOGIN_NO) == 0) // ·Î±×ÀÎ ½ÇÆĞ
-				{
+				} else if (line[0].compareTo(Data.ENTERLOGIN_NO) == 0) { // ë¡œê·¸ì¸ ì‹¤íŒ¨
+
 					JOptionPane.showMessageDialog(this, line[1]);
-					System.out.println("·Î±×ÀÎ ½ÇÆĞ");
-				} else if (line[0].compareTo(Data.EXITWAITROOM) == 0) // ·Î±×¾Æ¿ô [´ë±â½Ç -> ·Î±×ÀÎÆäÀÌÁö]
-				{
+					System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨");
+
+				} else if (line[0].compareTo(Data.EXITWAITROOM) == 0) { // ëŒ€ê¸°ì‹¤ -> ë¡œê·¸ì¸ page (ë¡œê·¸ì•„ì›ƒ)
+
 					RoomF.chatarea.append(line[1] + line[2] + '\n');
 
 					String text[] = line[3].split(":");
@@ -438,79 +349,80 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 					}
 					RoomF.usertxt.setText(userlist);
 
-				} else if (line[0].compareTo(Data.SENDMESSAGE_ACK) == 0) // ¼­¹ö·Î ¸Ş¼¼Áö ¹ŞÀ½ [´ë±â½Ç]
-				{
+				} else if (line[0].compareTo(Data.SENDMESSAGE_ACK) == 0) { // ëŒ€ê¸°ì‹¤ message ë°›ìŒ
+
 					RoomF.chatarea.append("[" + line[1] + "] :" + line[2] + '\n');
 
-				} else if (line[0].compareTo(Data.ROOMMAKE_OK) == 0) // ¹æ¸¸µé¾îÁü
-				{
-					System.out.println("ÀÌ°Å µÇ³Ä?");
-					String roomList[] = line[1].split("-"); // ¹æ °¹¼ö
+				} else if (line[0].compareTo(Data.ROOMMAKE_OK) == 0) { // ë°© ìƒì„±
+
+					System.out.println("ê²Œì„ë°© ìƒì„±");
+					String roomList[] = line[1].split("-"); // ë°© ê°¯ìˆ˜
 					for (int i = 0; i < roomList.length; i++) {
 						System.out.print(roomList[i] + "/");
 					}
 
-					String roomListDetail[]; // ¹æ¼¼ºÎ
+					String roomListDetail[]; // ë°© ì„¸ë¶€
 					System.out.println("RoomList size : " + roomList.length);
 
-					RoomF.containPanelClear(); // ·ë ÇÁ·¹ÀÓ¿¡ ÄÁÅ×ÀÌ³Ê¸¦ ºñ¿öÁÖ°í
+					RoomF.containPanelClear(); // ëŒ€ê¸°ì‹¤ FRAME ì»¨í…Œì´ë„ˆë¥¼ ë¹„ìš°ê¸°
 					for (int i = 0; i < roomList.length; i++) {
 
-						RoomF.dp[i].init(); // ¹æ¸®½ºÆ®¸¦ ¹ŞÀº°Å·Î ´Ù½Ã »ı¼ºÇØÁÖ°í
+						RoomF.dp[i].init(); // ê²Œì„ë°© ë¦¬ìŠ¤íŠ¸ë¥¼ ë‹¤ì‹œ ìƒì„±í•˜ê¸°
 						roomListDetail = roomList[i].split("%");
 						String userNumber = "";
 
-						if (roomListDetail.length == 8) // ºñ°ø°³¹æ
-						{
-							userNumber += (roomListDetail[7] + "/" + roomListDetail[3]);
+//						if (roomListDetail.length == 8) { // ë¹„ê³µê°œë°©
+//
+//							userNumber += (roomListDetail[7] + "/" + roomListDetail[3]);
+//
+//							RoomF.dp[i].labelArray[1].setText(roomListDetail[0]); // ë°©ë²ˆí˜¸
+//							RoomF.dp[i].labelArray[3].setText(roomListDetail[5]); // ë°©ì£¼ì œ
+//							RoomF.dp[i].labelArray[5].setText(userNumber); // ì¸ì›ìˆ˜
+//							RoomF.dp[i].labelArray[7].setText(roomListDetail[1]); // ë°©ì œëª©
+//							RoomF.dp[i].labelArray[8].setText("ê°œì„¤ì : " + roomListDetail[4]); // ê°œì„¤ì
+//						} 
+						
+						if (roomListDetail.length == 6) { // 0, 1(ë°©ë²ˆí˜¸), 2, 3(ë°©ì œëª©), 4, 5(ì¸ì›ìˆ˜), 6(ë°©ì¥)
 
-							RoomF.dp[i].labelArray[1].setText(roomListDetail[0]); // ¹æ¹øÈ£
-							RoomF.dp[i].labelArray[3].setText(roomListDetail[5]); // ¹æÁÖÁ¦
-							RoomF.dp[i].labelArray[5].setText(userNumber); // ÀÎ¿ø¼ö
-							RoomF.dp[i].labelArray[7].setText(roomListDetail[1]); // ¹æÁ¦¸ñ
-							RoomF.dp[i].labelArray[8].setText("°³¼³ÀÚ : " + roomListDetail[4]); // °³¼³ÀÚ
-						} else if (roomListDetail.length == 7) // °ø°³¹æ
-						{
-							userNumber += (roomListDetail[6] + "/" + roomListDetail[2]);
-							RoomF.dp[i].labelArray[1].setText(roomListDetail[0]); // ¹æ¹øÈ£
-							RoomF.dp[i].labelArray[3].setText(roomListDetail[5]); // ¹æÁÖÁ¦
-							RoomF.dp[i].labelArray[5].setText(userNumber); // ÀÎ¿ø¼ö
-							RoomF.dp[i].labelArray[7].setText(roomListDetail[1]); // ¹æÁ¦¸ñ
-							RoomF.dp[i].labelArray[8].setText("°³¼³ÀÚ : " + roomListDetail[3]); // °³¼³ÀÚ
+							userNumber += (roomListDetail[4] + "/" + roomListDetail[2]);
+							RoomF.dp[i].labelArray[1].setText(roomListDetail[0]); // ë°© ë²ˆí˜¸
+							RoomF.dp[i].labelArray[3].setText(roomListDetail[1]); // ë°© ì œëª© 
+							RoomF.dp[i].labelArray[5].setText(userNumber); // ì¸ì› ìˆ˜ 
+							RoomF.dp[i].labelArray[6].setText("ë°©ì¥ : " + roomListDetail[3]); // ë°©ì¥
 						}
+						
 						System.out.println("userNumber : " + userNumber);
 
 					}
 					chattingF.area.setText("");
 					chattingF.area1.setText("");
-					rMakeF.setVisible(false); // ´ë±â¹æ È­¸é ²ô°í
+					rMakeF.setVisible(false); // ëŒ€ê¸°ë°© í™”ë©´ ë„ê³ 
 					RoomF.setVisible(true);
 
-				} else if (line[0].compareTo(Data.ROOMMAKE_OK1) == 0) // ¹æ¸¸µé¾îÁü (¸¸µç ´ç»çÀÚ) // ÀÔÀå
-				{
-					rMakeF.setVisible(false); // ´ë±â¹æ È­¸é ²ô°í
+				} else if (line[0].compareTo(Data.ROOMMAKE_OK1) == 0) { // ê²Œì„ ë°© ìƒì„± - ë°©ì¥ ì…ì¥
+
+					rMakeF.setVisible(false); // ë°© ë§Œë“¤ê¸° í™”ë©´ ë„ê¸°
 					chattingF.area.setText("");
 					chattingF.setVisible(true);
 					chattingF.partList.setText(line[1] + "\n");
 
-				} else if (line[0].compareTo(Data.ENTERROOM_OK1) == 0) // ¹æÀÔÀå ÀÔÀåÇÏ´Â ´ç»çÀÚ
-				{
-					System.out.println("ÀÔÀåÈ­¸é º¯È¯");
+				} else if (line[0].compareTo(Data.ENTERROOM_OK1) == 0) { // ë°©ì…ì¥ ì…ì¥í•˜ëŠ” ë‹¹ì‚¬ì
+
+					System.out.println("ì…ì¥í™”ë©´ ë³€í™˜");
 					RoomF.setVisible(false);
 					chattingF.area1.setText("");
 					chattingF.area.setText("");
 					chattingF.setVisible(true);
 //					System.out.println(line[2]);
-//					String roomMember[] = line[2].split("%");//·ë¿¡ µé¾î¿Â»ç¶÷µé
-//					chattingF.partList.append(line[1]); //ÀÚ±â Ãß°¡ÇØÁÖ°í
+//					String roomMember[] = line[2].split("%");//ë£¸ì— ë“¤ì–´ì˜¨ì‚¬ëŒë“¤
+//					chattingF.partList.append(line[1]); //ìê¸° ì¶”ê°€í•´ì£¼ê³ 
 //					for (int i = 0; i < roomMember.length; i++) {
 //						chattingF.partList.append(roomMember[i] + "\n");
 //					}
 
-				} else if (line[0].compareTo(Data.ENTERROOM_USERLISTSEND) == 0) // Ã¤ÆÃ¹æ ¸®½ºÆ® »õ·Î°íÄ§
-				{
+				} else if (line[0].compareTo(Data.ENTERROOM_USERLISTSEND) == 0) { // ì±„íŒ…ë°© ë¦¬ìŠ¤íŠ¸ ìƒˆë¡œê³ ì¹¨
 
-					String roomMember[] = line[1].split("%");// ·ë¿¡ µé¾î¿Â»ç¶÷µé
+					String roomMember[] = line[1].split("%");// ë£¸ì— ë“¤ì–´ì˜¨ì‚¬ëŒë“¤
 					String lineList = "";
 					for (int i = 0; i < roomMember.length; i++) {
 						lineList += (roomMember[i] + "\n");
@@ -529,67 +441,12 @@ public class EnterFrame extends JFrame implements ActionListener, Runnable, List
 
 				} else if (line[0].compareTo(Data.CHATTINGSENDMESSAGE_OK) == 0) {
 					chattingF.area1.append("[" + line[1] + "] :" + line[2] + "\n");
-				} else if (line[0].compareTo(Data.CHATTINGFILESEND_SYNACK) == 0) {
-
-					pw.println(Data.CHATTINGFILESEND_FILE + "|" + chattingF.file.length());
-					pw.flush();
-
-					OutputStream os = socket.getOutputStream();
-
-					System.out.println("ÆÄÀÏ º¸³»±â ½ÃÀÛ !!!");
-					// º¸³¾ ÆÄÀÏÀÇ ÀÔ·Â ½ºÆ®¸² °´Ã¼ »ı¼º
-					FileInputStream fis = new FileInputStream(chattingF.file.getAbsoluteFile());
-
-					// ÆÄÀÏÀÇ ³»¿ëÀ» º¸³½´Ù
-					byte[] b = new byte[512];
-					int n;
-					while ((n = fis.read(b, 0, b.length)) > 0) {
-						os.write(b, 0, n);
-						System.out.println(n + "bytes º¸³¿ !!!");
-					}
-
-					// ¼ÒÄÏ¿¡¼­ º¸³¾ Ãâ·Â ½ºÆ®¸²À» ±¸ÇÑ´Ù.
-				} else if (line[0].compareTo(Data.CHATTINGFILESEND_FILEACK) == 0) {
-
-					String[] fileList = line[1].split("%");
-
-					chattingF.model.removeAllElements();
-					for (int i = 0; i < fileList.length; i++) {
-						chattingF.model.addElement(fileList[i]);
-					}
-
-				} else if (line[0].compareTo(Data.CHATTINGFILEDOWNLOAD_SEND) == 0) { // ÆÄÀÏÀ» ¹ŞÀ½
-					String path = chattingF.file.getAbsolutePath();
-
-					FileOutputStream fos = new FileOutputStream(path);
-					InputStream is = socket.getInputStream();
-
-					System.out.println("ÆÄÀÏ ´Ù¿î·Îµå ½ÃÀÛ !!!");
-
-					// º¸³»¿Â ÆÄÀÏ ³»¿ëÀ» ÆÄÀÏ¿¡ ÀúÀå
-
-					byte[] b = new byte[512];
-
-					int n = 0;
-					long filesize = Long.parseLong(line[1]);
-
-					while ((n = is.read(b, 0, b.length)) > 0) {
-
-						fos.write(b, 0, n);
-						System.out.println("N:" + n);
-						System.out.println(n + "bytes ´Ù¿î·Îµå !!!");
-						n += n;
-						if (n >= filesize)
-							break;
-					}
-
-					fos.close();
-					System.out.println("ÆÄÀÏ ´Ù¿î·Îµå ³¡ !!!");
 				}
 
 			} catch (IOException io) {
 				io.printStackTrace();
 			}
+
 		} // while
 	}
 
