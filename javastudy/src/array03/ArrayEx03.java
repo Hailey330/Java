@@ -1,10 +1,10 @@
 package array03;
 
-// Èü Á¤·Ä!!!
+// í™ ì •ë ¬!!!
 public class ArrayEx03 {
 
 	public static void main(String[] args) {
-		// for¹®À» ÀÌ¿ëÇÏ¿© 1¿¡¼­ 10±îÁöÀÇ ÇÕÀ» ±¸ÇÏ½Ã¿À.
+		// forë¬¸ì„ ì´ìš©í•˜ì—¬ 1ì—ì„œ 10ê¹Œì§€ì˜ í•©ì„ êµ¬í•˜ì‹œì˜¤.
 		int sum = 0;
 		for (int i = 1; i < 11; i++) {
 			sum = sum + i;

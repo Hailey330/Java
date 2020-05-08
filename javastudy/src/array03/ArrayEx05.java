@@ -1,6 +1,6 @@
 package array03;
 
-//¼ıÀÚ 1000000000(10¾ï)À» 3ÀÚ¸®¸¶´Ù ÄŞ¸¶¸¦ Âï¾î¼­ Ãâ·Â!
+//ìˆ«ì 1000000000(10ì–µ)ì„ 3ìë¦¬ë§ˆë‹¤ ì½¤ë§ˆë¥¼ ì°ì–´ì„œ ì¶œë ¥!
 // 1,000,000,000
 
 import java.util.Scanner;
@@ -13,10 +13,10 @@ public class ArrayEx05 {
 		String tempNum = num + "";
 		String tempNum2[] = tempNum.split("");
 
-		// ¹æ¹ı 1
+		// ë°©ë²• 1
 		int len = tempNum2.length; // len = 4
 
-		for (int i = 0; i < len; i++) { // 4¹ø µµ´Â for¹®
+		for (int i = 0; i < len; i++) { // 4ë²ˆ ë„ëŠ” forë¬¸
 			if ((len - i) % 3 == 0 && i != 0) { // 4%3, 3%3, 2%3, 1%3
 				System.out.print(",");
 			}
@@ -25,22 +25,22 @@ public class ArrayEx05 {
 
 		System.out.println();
 
-		// ¹æ¹ı 2
-		// ÀÚ¸´¼ö °è»êÀ» À§ÇÑ º¯¼ö
+		// ë°©ë²• 2
+		// ìë¦¿ìˆ˜ ê³„ì‚°ì„ ìœ„í•œ ë³€ìˆ˜
 		int p = (tempNum2.length % 3);
 		for (int i = 0; i < tempNum2.length; i++) {
-			// Ã¹Â° ÀÚ¸® ¾Õ¿¡ , °¡ ºÙÀ¸¸é ¾ÈµÇ´Ï±î Ã¹ Á¶°Ç
+			// ì²«ì§¸ ìë¦¬ ì•ì— , ê°€ ë¶™ìœ¼ë©´ ì•ˆë˜ë‹ˆê¹Œ ì²« ì¡°ê±´
 			if (i == 0) tempNum2[i] = "" + tempNum2[i];
-			// i¸¦ 3À¸·Î ³ª´« °ÍÀÌ p°ª°ú °°À¸¸é ¾Õ¿¡ , ¸¦ ºÙÀÓ
+			// ië¥¼ 3ìœ¼ë¡œ ë‚˜ëˆˆ ê²ƒì´ pê°’ê³¼ ê°™ìœ¼ë©´ ì•ì— , ë¥¼ ë¶™ì„
 			else if (i % 3 == p) tempNum2[i] = "," + tempNum2[i];
-			// ÀÚ¸´¼ö´ë·Î Ãâ·ÂÇÏ±â
+			// ìë¦¿ìˆ˜ëŒ€ë¡œ ì¶œë ¥í•˜ê¸°
 			System.out.print(tempNum2[i]);
 		}
 	}
 }
-// ½ÇÆĞÇÑ ÄÚµå
+// ì‹¤íŒ¨í•œ ì½”ë“œ
 // for (int i = 0; i < tempNum2.length; i++) { System.out.print(tempNum2[i]);
 // if (i % 3 == 0) { System.out.print(",");
  
 // System.out.println(tempNum2[0]);
-// System.out.println("±æÀÌ : " + tempNum2.length);
+// System.out.println("ê¸¸ì´ : " + tempNum2.length);

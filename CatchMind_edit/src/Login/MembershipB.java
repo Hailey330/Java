@@ -66,9 +66,8 @@ public class MembershipB extends JFrame {
 
 //		setVisible(true);
 		setResizable(false);
-		setBounds(400, 200, 1000, 800);
-//		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-
+		setBounds(400, 200, 800, 800);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

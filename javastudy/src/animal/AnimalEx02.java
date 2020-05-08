@@ -10,12 +10,12 @@ class Dog implements Animal {
 
 	@Override
 	public void run() {
-		System.out.println("°­¾ÆÁö ´Ş¸°´Ù.");
+		System.out.println("ê°•ì•„ì§€ ë‹¬ë¦°ë‹¤.");
 	}
 
 	@Override
 	public void sound() {
-		System.out.println("¸Û¸Û");
+		System.out.println("ë©ë©");
 	}
 }
 
@@ -23,17 +23,17 @@ class Bird implements Animal {
 
 	@Override
 	public void run() {
-		System.out.println("»õ´Â ´Ş¸°´Ù.");
+		System.out.println("ìƒˆëŠ” ë‹¬ë¦°ë‹¤.");
 	}
 
 	@Override
 	public void sound() {
-		System.out.println("Â±Â±");
+		System.out.println("ì§¹ì§¹");
 
 	}
 
 	public void fly() {
-		System.out.println("»õ´Â ³­´Ù.");
+		System.out.println("ìƒˆëŠ” ë‚œë‹¤.");
 
 	}
 }
@@ -44,7 +44,7 @@ public class AnimalEx02 {
 		a.run();
 		a.sound();
 		if (a instanceof Bird) {
-			// fly ¸Ş¼Òµå¸¦ °¡Áø ³ğÀÌ¶ó´Â °É È®½Å
+			// fly ë©”ì†Œë“œë¥¼ ê°€ì§„ ë†ˆì´ë¼ëŠ” ê±¸ í™•ì‹ 
 			((Bird)a).fly();
 		}
 	}

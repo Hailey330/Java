@@ -1,4 +1,4 @@
-package Chatting;
+package Game;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -28,7 +28,7 @@ import javax.swing.ListSelectionModel;
 
 public class GameFrame extends JFrame {
 
-	public JButton openB, saveB, loadB, deleteB, exitB, sendB;
+	public JButton quizB, saveB, loadB, deleteB, exitB, sendB;
 	public JTextArea area, area1, partList;
 	public JTextField field;
 
@@ -36,23 +36,22 @@ public class GameFrame extends JFrame {
 	public File file, folder;
 	private BufferedReader br;
 	private ArrayList<String> arr;
-	public DefaultListModel<String> model;
 
 	public GameFrame() {
 
-		openB = new JButton("내PC 파일열기");
-		saveB = new JButton("내PC 파일저장");
+		quizB = new JButton("제시어");
+//		saveB = new JButton("내PC");
 		loadB = new JButton("업로드");
 		exitB = new JButton("나가기");
 
-		openB.setEnabled(true);
-		saveB.setEnabled(true);
+		quizB.setEnabled(true);
+//		saveB.setEnabled(true);
 		loadB.setEnabled(true);
 		exitB.setEnabled(true);
 
 		JPanel wpanel = new JPanel(new GridLayout(1, 5, 5, 0));
-		wpanel.add(openB);
-		wpanel.add(saveB);
+		wpanel.add(quizB);
+//		wpanel.add(saveB);
 		wpanel.add(loadB);
 		wpanel.add(exitB);
 
@@ -74,8 +73,8 @@ public class GameFrame extends JFrame {
 		JPanel p1 = new JPanel();
 		JLabel user = new JLabel("                                   참여 인원");
 		p1.add(user);
-
-		partList = new JTextArea();
+ 
+		partList = new JTextArea(); // 참여 인원 창 
 		partList.setEditable(true);
 		JScrollPane scroll1 = new JScrollPane(partList);
 		scroll1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -91,7 +90,7 @@ public class GameFrame extends JFrame {
 		list2 = new JList<String>(new DefaultListModel<String>());
 		list2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		model = (DefaultListModel<String>) list2.getModel();
+//		model = (DefaultListModel<String>) list2.getModel();
 		// list2.setSelectedIndex(0);
 		JScrollPane scroll2 = new JScrollPane(list2);
 		scroll2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -206,7 +205,7 @@ public class GameFrame extends JFrame {
 	}
 
 	public void fileDelete() {
-		model.remove(list2.getSelectedIndex());
+//		model.remove(list2.getSelectedIndex());
 		area.setText("");
 
 	}

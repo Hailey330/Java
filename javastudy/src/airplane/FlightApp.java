@@ -15,17 +15,17 @@ public class FlightApp {
 	
 	public static int getTotalCount(String depAirportId, String arrAirportId, long depPlandTime) {
 		try {
-			// 1¹ø ÁÖ¼Ò °´Ã¼ ¸¸µé±â
+			// 1ë²ˆ ì£¼ì†Œ ê°ì²´ ë§Œë“¤ê¸°
 			URL url = new URL(
 					"http://openapi.tago.go.kr/openapi/service/DmstcFlightNvgInfoService/getFlightOpratInfoList?serviceKey=BTERlPQquIzWPNPwhyG74H1Q%2FoDrHpnubL%2FXCu%2FHneA%2BYSKX%2FstOJrcTUGI7BZX%2BClPcZ8DgeT5h2SAfhqvr6w%3D%3D&numOfRows=50&pageNo=1&depAirportId="+FlightInfoService.airPortId.get(depAirportId)+"&arrAirportId="+FlightInfoService.airPortId.get(arrAirportId)+"&depPlandTime=20200407&_type=json");
 
-			// 2¹ø ½ºÆ®¸² ¿¬°á
+			// 2ë²ˆ ìŠ¤íŠ¸ë¦¼ ì—°ê²°
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-			// 3¹ø ¹öÆÛ ¿¬°á (¹®ÀÚ¿­)
+			// 3ë²ˆ ë²„í¼ ì—°ê²° (ë¬¸ìì—´)
 			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 
-			// 4¹ø ¹®ÀÚ ´õÇÏ±â
+			// 4ë²ˆ ë¬¸ì ë”í•˜ê¸°
 			StringBuilder sb = new StringBuilder();
 
 			String input = "";
@@ -34,10 +34,10 @@ public class FlightApp {
 			}
 			System.out.println(sb.toString());
 
-			br.close(); // ¹öÆÛ ´İ±â
-			con.disconnect(); // ½ºÆ®¸² ´İ±â
+			br.close(); // ë²„í¼ ë‹«ê¸°
+			con.disconnect(); // ìŠ¤íŠ¸ë¦¼ ë‹«ê¸°
 
-			// 5¹ø ÀÚ¹Ù ¿ÀºêÁ§Æ®·Î º¯È¯ 
+			// 5ë²ˆ ìë°” ì˜¤ë¸Œì íŠ¸ë¡œ ë³€í™˜ 
 			Gson gson = new Gson();
 			FlightInfo flightInfo = gson.fromJson(sb.toString(), FlightInfo.class);
 
@@ -51,17 +51,17 @@ public class FlightApp {
 
 	public static FlightInfo getFlightInfo(String depAirportId, String arrAirportId, long depPlandTime, int page) {
 		try {
-			// 1¹ø ÁÖ¼Ò °´Ã¼ ¸¸µé±â
+			// 1ë²ˆ ì£¼ì†Œ ê°ì²´ ë§Œë“¤ê¸°
 			URL url = new URL(
 					"http://openapi.tago.go.kr/openapi/service/DmstcFlightNvgInfoService/getFlightOpratInfoList?serviceKey=BTERlPQquIzWPNPwhyG74H1Q%2FoDrHpnubL%2FXCu%2FHneA%2BYSKX%2FstOJrcTUGI7BZX%2BClPcZ8DgeT5h2SAfhqvr6w%3D%3D&numOfRows=50&pageNo="+page+"&depAirportId="+FlightInfoService.airPortId.get(depAirportId)+"&arrAirportId="+FlightInfoService.airPortId.get(arrAirportId)+"&depPlandTime=20200407&_type=json");
 
-			// 2¹ø ½ºÆ®¸² ¿¬°á
+			// 2ë²ˆ ìŠ¤íŠ¸ë¦¼ ì—°ê²°
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-			// 3¹ø ¹öÆÛ ¿¬°á (¹®ÀÚ¿­)
+			// 3ë²ˆ ë²„í¼ ì—°ê²° (ë¬¸ìì—´)
 			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 
-			// 4¹ø ¹®ÀÚ ´õÇÏ±â
+			// 4ë²ˆ ë¬¸ì ë”í•˜ê¸°
 			StringBuilder sb = new StringBuilder();
 
 			String input = "";
@@ -71,10 +71,10 @@ public class FlightApp {
 			System.out.println(sb.toString());
 			System.out.println();
 
-			br.close(); // ¹öÆÛ ´İ±â
-			con.disconnect(); // ½ºÆ®¸² ´İ±â
+			br.close(); // ë²„í¼ ë‹«ê¸°
+			con.disconnect(); // ìŠ¤íŠ¸ë¦¼ ë‹«ê¸°
 
-			// 5¹ø ÀÚ¹Ù ¿ÀºêÁ§Æ®·Î º¯È¯
+			// 5ë²ˆ ìë°” ì˜¤ë¸Œì íŠ¸ë¡œ ë³€í™˜
 			Gson gson = new Gson();
 			FlightInfo flightInfo = gson.fromJson(sb.toString(), FlightInfo.class);
 
@@ -93,26 +93,26 @@ public class FlightApp {
 			System.out.print(key + " ");
 		}
 		System.out.println();
-		System.out.println("Ãâ¹ßÁö¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ì¶œë°œì§€ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		Scanner sc = new Scanner(System.in);
-		String depAirportId = sc.next(); // ±èÆ÷
+		String depAirportId = sc.next(); // ê¹€í¬
 		
-		System.out.println("µµÂøÁö¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ë„ì°©ì§€ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		String arrAirportId = sc.next();
 		
-		System.out.println("Ãâ¹ß ÀÏÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä."); 
-		// »ç¿ëÀÚ¿¡°Ô ÀÔ·Â¹ŞÀ» ¶§´Â String À¸·Î ¹Ş´Â °ÍÀÌ Á¦ÀÏ ÁÁ´Ù. ¿À·ù ¡é
+		System.out.println("ì¶œë°œ ì¼ìë¥¼ ì…ë ¥í•˜ì„¸ìš”."); 
+		// ì‚¬ìš©ìì—ê²Œ ì…ë ¥ë°›ì„ ë•ŒëŠ” String ìœ¼ë¡œ ë°›ëŠ” ê²ƒì´ ì œì¼ ì¢‹ë‹¤. ì˜¤ë¥˜ â†“
 		String depPlandTimeTemp= sc.next(); 
 		
-		// String À» ÇÔ¼ö·Î ¹Ù²ãÁÖ±â 
+		// String ì„ í•¨ìˆ˜ë¡œ ë°”ê¿”ì£¼ê¸° 
 		long depPlandTime = Long.parseLong(depPlandTimeTemp);
-		// Int ·Î º¯°æÇÏ±â
+		// Int ë¡œ ë³€ê²½í•˜ê¸°
 		Integer depPlandTimeInteger = Integer.parseInt(depPlandTimeTemp);
-		// double ·Î º¯°æÇÏ±â
+		// double ë¡œ ë³€ê²½í•˜ê¸°
 		Double depPlandTimeDouble = Double.parseDouble(depPlandTimeTemp);
 		
 		int page = 1;
-		// ¹®ÀÚÈ­ ÇÏ±â : ¹®ÀÚ + ¼ıÀÚ ´õÇÏ¸é ¹¬½ÃÀû Çüº¯È¯ 
+		// ë¬¸ìí™” í•˜ê¸° : ë¬¸ì + ìˆ«ì ë”í•˜ë©´ ë¬µì‹œì  í˜•ë³€í™˜ 
 		String strTemp = depPlandTime + ""; 
 		String strTemp2 = depPlandTimeInteger.toString();
 		String strTemp3 = depPlandTimeDouble.toString();
@@ -135,17 +135,17 @@ public class FlightApp {
 			flightInfos.add(flightInfo);
 		}
 		
-		for (FlightInfo flightInfo : flightInfos) { // µ¥ÀÌÅÍ´Â ÃÑ 122°³´Ï±î 3¹ø µ·´Ù.
+		for (FlightInfo flightInfo : flightInfos) { // ë°ì´í„°ëŠ” ì´ 122ê°œë‹ˆê¹Œ 3ë²ˆ ëˆë‹¤.
 			List<Item> flightItems = flightInfo.getResponse().getBody().getItems().getItem();
 			
-			// forEach¹® : iterable (¹İº¹) µÇ´Â ¸ğµç ·¹ÆÛ·±½º°¡ µé¾î°¥ ¼ö ÀÖ´Ù
+			// forEachë¬¸ : iterable (ë°˜ë³µ) ë˜ëŠ” ëª¨ë“  ë ˆí¼ëŸ°ìŠ¤ê°€ ë“¤ì–´ê°ˆ ìˆ˜ ìˆë‹¤
 			for (Item item : flightItems) { 
-				System.out.println("Ç×°ø»ç : " + item.getAirlineNm());
-				System.out.println("Ãâ¹ßÁö : " + item.getDepAirportNm());
-				System.out.println("µµÂøÁö : " + item.getArrAirportNm());
-				System.out.println("Ãâ¹ß½Ã°£ : " + item.getDepPlandTime());
-				System.out.println("µµÂø½Ã°£ : " + item.getArrPlandTime());
-				System.out.println("¿ä±İ : " + item.getEconomyCharge());
+				System.out.println("í•­ê³µì‚¬ : " + item.getAirlineNm());
+				System.out.println("ì¶œë°œì§€ : " + item.getDepAirportNm());
+				System.out.println("ë„ì°©ì§€ : " + item.getArrAirportNm());
+				System.out.println("ì¶œë°œì‹œê°„ : " + item.getDepPlandTime());
+				System.out.println("ë„ì°©ì‹œê°„ : " + item.getArrPlandTime());
+				System.out.println("ìš”ê¸ˆ : " + item.getEconomyCharge());
 				System.out.println();
 			}
 	

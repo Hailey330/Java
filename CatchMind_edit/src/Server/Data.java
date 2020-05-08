@@ -21,7 +21,7 @@ public class Data {
 
 	public static final String ENTERLOGIN_NO = "122"; // 로그인 실패(NACK)
 
-	public static final String PWSEARCH = "130"; // PW찾기
+//	public static final String PWSEARCH = "130"; // PW찾기
 
 	public static final String ROOMMAKE = "200"; // 방만들기
 

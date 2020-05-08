@@ -3,7 +3,7 @@ package array03;
 public class ArrayEx04 {
 
 	public static void main(String[] args) {
-		// 1ºÎÅÍ 100±îÁöÀÇ ¼ö Áß¿¡¼­ 3ÀÇ ¹è¼öÀÇ ÇÕÀ» ±¸ÇÏ½Ã¿À.
+		// 1ë¶€í„° 100ê¹Œì§€ì˜ ìˆ˜ ì¤‘ì—ì„œ 3ì˜ ë°°ìˆ˜ì˜ í•©ì„ êµ¬í•˜ì‹œì˜¤.
 		int sum = 0;
 		for (int i = 1; i < 100; i++) {
 			if (i % 3 == 0) {

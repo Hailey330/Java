@@ -2,38 +2,38 @@ package airplane2;
 
 import java.util.HashMap;
 
-public class FlightInfoService { // À¯Æ¿ÀûÀÎ class (¾îÂ¿ ¼ö ¾øÀÌ ¸¸µç)
+public class FlightInfoService { // ìœ í‹¸ì ì¸ class (ì–´ì©” ìˆ˜ ì—†ì´ ë§Œë“ )
 	public static HashMap<String, String> airLinedId = new HashMap<>();
 
 	public static HashMap<String, String> airPortId = new HashMap<>();
 
 	public static void setAirLineId() {
-		airLinedId.put("¾Æ½Ã¾Æ³ªÇ×°ø", "AAR");
-		airLinedId.put("¿¡¾îºÎ»ê", "ABL");
-		airLinedId.put("ÀÌ½ºÅ¸Ç×°ø", "ESR");
-		airLinedId.put("Á¦ÁÖÇ×°ø", "JJA");
-		airLinedId.put("Áø ¿¡¾î", "JNA");
-		airLinedId.put("´ëÇÑ Ç×°ø", "KAL");
-		airLinedId.put("Æ¼¿şÀÌÇ×°ø", "TWB");
+		airLinedId.put("ì•„ì‹œì•„ë‚˜í•­ê³µ", "AAR");
+		airLinedId.put("ì—ì–´ë¶€ì‚°", "ABL");
+		airLinedId.put("ì´ìŠ¤íƒ€í•­ê³µ", "ESR");
+		airLinedId.put("ì œì£¼í•­ê³µ", "JJA");
+		airLinedId.put("ì§„ ì—ì–´", "JNA");
+		airLinedId.put("ëŒ€í•œ í•­ê³µ", "KAL");
+		airLinedId.put("í‹°ì›¨ì´í•­ê³µ", "TWB");
 
 	}
 
 	public static void setAirPortId() {
-		airPortId.put("¹«¾È", "NAARKJB");
-		airPortId.put("±¤ÁÖ", "NAARKJJ");
-		airPortId.put("±º»ê", "NAARKJK");
-		airPortId.put("¿©¼ö", "NAARKJY");
-		airPortId.put("¿øÁÖ", "NAARKNW");
-		airPortId.put("¾ç¾ç", "NAARKNY");
-		airPortId.put("Á¦ÁÖ", "NAARKPC");
-		airPortId.put("±èÇØ", "NAARKPK");
-		airPortId.put("»çÃµ", "NAARKPS");
-		airPortId.put("¿ï»ê", "NAARKPU");
-		airPortId.put("ÀÎÃµ", "NAARKSI");
-		airPortId.put("±èÆ÷", "NAARKSS");
-		airPortId.put("Æ÷Ç×", "NAARKTH");
-		airPortId.put("´ë±¸", "NAARKTN");
-		airPortId.put("Ã»ÁÖ", "NAARKTU");
+		airPortId.put("ë¬´ì•ˆ", "NAARKJB");
+		airPortId.put("ê´‘ì£¼", "NAARKJJ");
+		airPortId.put("êµ°ì‚°", "NAARKJK");
+		airPortId.put("ì—¬ìˆ˜", "NAARKJY");
+		airPortId.put("ì›ì£¼", "NAARKNW");
+		airPortId.put("ì–‘ì–‘", "NAARKNY");
+		airPortId.put("ì œì£¼", "NAARKPC");
+		airPortId.put("ê¹€í•´", "NAARKPK");
+		airPortId.put("ì‚¬ì²œ", "NAARKPS");
+		airPortId.put("ìš¸ì‚°", "NAARKPU");
+		airPortId.put("ì¸ì²œ", "NAARKSI");
+		airPortId.put("ê¹€í¬", "NAARKSS");
+		airPortId.put("í¬í•­", "NAARKTH");
+		airPortId.put("ëŒ€êµ¬", "NAARKTN");
+		airPortId.put("ì²­ì£¼", "NAARKTU");
 
 	}
 }

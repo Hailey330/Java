@@ -3,12 +3,12 @@ package airplane;
 public class TestEx01 {
 
 	public static void main(String[] args) {
-		String addr = "ÃæÃ»³²µµ È«¼º±º °¥»ê¸é »óÃÌ·Î 12-1";
+		String addr = "ì¶©ì²­ë‚¨ë„ í™ì„±êµ° ê°ˆì‚°ë©´ ìƒì´Œë¡œ 12-1";
 		
-		if(addr.contains("ÃæÃ»³²µµ")) {
-			System.out.println("ÀÖ¾î¿ä");
+		if(addr.contains("ì¶©ì²­ë‚¨ë„")) {
+			System.out.println("ìˆì–´ìš”");
 		}else {
-			System.out.println("¾ø¾î¿ä");
+			System.out.println("ì—†ì–´ìš”");
 		}
 	}
 }

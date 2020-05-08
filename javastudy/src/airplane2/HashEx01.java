@@ -8,10 +8,10 @@ public class HashEx01 {
 		HashMap<String, String> auth =
 				new HashMap<>();
 		
-		auth.put("¾ÆÀÌµğ", "mink330");
-		auth.put("ºñ¹Ğ¹øÈ£", "1234");
+		auth.put("ì•„ì´ë””", "mink330");
+		auth.put("ë¹„ë°€ë²ˆí˜¸", "1234");
 		
-		System.out.println(auth.get("¾ÆÀÌµğ")); // ÇØ½¬ key ÁÖ¼Ò´Â À¯ÀÏÇÏ´Ù = Primary Key
+		System.out.println(auth.get("ì•„ì´ë””")); // í•´ì‰¬ key ì£¼ì†ŒëŠ” ìœ ì¼í•˜ë‹¤ = Primary Key
 	}
 
 }
