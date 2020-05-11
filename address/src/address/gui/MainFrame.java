@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -14,6 +18,7 @@ import javax.swing.JScrollPane;
 
 import address.model.GroupType;
 import address.model.Member;
+import address.utils.MyStringParser;
 
 public class MainFrame extends JFrame{
 	
@@ -56,7 +61,7 @@ public class MainFrame extends JFrame{
 		
 		// 데이터 초기화
 		private void initData() {
-			for (int i = 0; i < 31; i++) {
+			for (int i = 1; i < 31; i++) {
 				listModel.addElement(new Member(i, "홍길동", "0102222", "부산시", GroupType.친구));
 			}
 		}
@@ -94,6 +99,22 @@ public class MainFrame extends JFrame{
 		
 		// 리스너 등록 
 		private void initListener(	) {
+			userList.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+//					System.out.println(userList.getSelectedIndex());
+//					System.out.println(userList.getSelectedValue());  - 유저 리스트를 배열에 담음
+					int memberId = MyStringParser.getId(userList.getSelectedValue().toString());
+					new DetailFrame(mainFrame, memberId);
+				}
+			});
 			
+			addButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new AddFrame(mainFrame);
+				}
+			});
 		}
 }
