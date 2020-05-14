@@ -1,7 +1,6 @@
 package Server;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import models.Room;
 import models.User;
 
-public class MainHandler extends Thread { 
+public class MainHandler extends Thread { // 메인 스레드 
 	private BufferedReader br;
 	private PrintWriter pw;
 	private Socket socket;

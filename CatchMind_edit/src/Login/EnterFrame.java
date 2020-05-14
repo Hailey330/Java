@@ -47,7 +47,7 @@ public class EnterFrame extends JFrame implements ActionListener, KeyListener, R
 
 	public EnterFrame() {
 
-		network();
+		network(); // 소켓 생성 
 
 		membershipF = new MembershipB();
 		RoomF = new RoomFrame(br, pw);
