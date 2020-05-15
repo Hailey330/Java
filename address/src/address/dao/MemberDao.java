@@ -2,7 +2,8 @@ package address.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import address.db.DBConnection;
@@ -15,6 +16,8 @@ import address.model.Member;
 // static 일 시 Dao 클라이언트 수 만큼 new 됨(동기화 문제 생김) - DB와 커넥트할 때 말고 DML 할 때.
 public class MemberDao {
 
+	private final static String TAG = "MemberDao : ";
+
 	private MemberDao() {
 	}
 
@@ -25,9 +28,10 @@ public class MemberDao {
 	}
 
 	// DML은 return 값이 int이다. 리턴되는 값은 변경된 행의 개수이다.
-	public int 추가(Member m) {
-		
-		final String SQL = "INSERT INTO member(id, name, phone, address, group) VALUES(member_seq.nextval, ?, ?, ?, ?)"; // 대소문자 구분 
+	public int 추가(Member member) {
+
+		final String SQL = "INSERT INTO member(id, name, phone, address, groupType) VALUES(member_seq.nextval, ?, ?, ?, ?)"; 
+		// 대소문자 구분
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -36,19 +40,19 @@ public class MemberDao {
 			// 2. 버퍼 달기 (? 를 쓸 수 있는 버퍼)
 			pstmt = conn.prepareStatement(SQL);
 			// 3. 물음표 완성
-			pstmt.setString(1,  m.getName());
-			pstmt.setString(2,  m.getPhone());
-			pstmt.setString(3,  m.getAddress());
-			pstmt.setString(4,  m.getGroup().toString());
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getPhone());
+			pstmt.setString(3, member.getAddress());
+			pstmt.setString(4, member.getGroupType().toString());
 			// 4. 쿼리 전송 (flush + commit)
 			int result = pstmt.executeUpdate();
 			return result;
 		} catch (Exception e) {
-			System.out.println("추가 오류 : " + e.getMessage());
+			System.out.println(TAG + "추가 오류 : " + e.getMessage());
 			// e.getMessage 보다 더 자세한 오류 발견 : e.printStackTrace
 		} finally { // 무조건 실행됨
 			DBUtils.close(conn, pstmt);
-		} 
+		}
 		return -1;
 	}
 
@@ -56,7 +60,7 @@ public class MemberDao {
 		return -1;
 	}
 
-	public int 수정(Member m) {
+	public int 수정(Member member) {
 		return -1;
 	}
 
@@ -66,7 +70,37 @@ public class MemberDao {
 	}
 
 	public List<Member> 전체목록() {
+		final String SQL = "SELECT * FROM member ORDER BY id"; // 목록에서 Order By는 항상!
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> members = new ArrayList<>();
+		try {
+			// 1. 스트림 연결
+			conn = DBConnection.getConnection();
+			// 2. 버퍼 달기 (? 를 쓸 수 있는 버퍼)
+			pstmt = conn.prepareStatement(SQL);
+			// 3. 물음표 완성
+			// 4. 쿼리 전송 (flush + rs 받기)
+			rs = pstmt.executeQuery();
+			while (rs.next()) { // return 값이 true, false
+				members.add(Member.builder()
+						.id(rs.getInt("id"))
+						.name(rs.getString("name"))
+						.phone(rs.getString("phone"))
+						.address(rs.getString("address"))
+						.groupType(GroupType.valueOf(rs.getString("groupType")))
+						.build());
+			}
+			return members;
+		} catch (Exception e) {
+			System.out.println(TAG + "전체목록 오류 : " + e.getMessage());
+			// e.getMessage 보다 더 자세한 오류 발견 : e.printStackTrace
+		} finally { // 무조건 실행됨
+			DBUtils.close(conn, pstmt, rs);
+		}
 		return null;
+
 	}
 
 	public List<Member> 그룹목록(GroupType group) {

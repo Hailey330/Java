@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -16,13 +17,15 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import address.model.GroupType;
 import address.model.Member;
+import address.service.MemberService;
 import address.utils.MyStringParser;
 
 public class MainFrame extends JFrame{
 	
-	private JFrame mainFrame = this;
+	private MemberService memberService = MemberService.getinstance();
+	
+	private MainFrame mainFrame = this;
 	private Container backGroundPanel;
 	private JPanel topPanel, menuPanel, listPanel;
 	private JButton homeButton, frButton, coButton, scButton, faButton, addButton;
@@ -61,8 +64,9 @@ public class MainFrame extends JFrame{
 		
 		// 데이터 초기화
 		private void initData() {
-			for (int i = 1; i < 31; i++) {
-				listModel.addElement(new Member(i, "홍길동", "0102222", "부산시", GroupType.친구));
+			List<Member> members = memberService.전체목록();
+			for (Member member : members) {
+				listModel.addElement(member);
 			}
 		}
 
@@ -109,12 +113,21 @@ public class MainFrame extends JFrame{
 				}
 			});
 			
-			addButton.addActionListener(new ActionListener() {
+			addButton.addActionListener(new ActionListener() { // os가 인식해서 target한테 알려줌
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					new AddFrame(mainFrame);
+					mainFrame.setVisible(false);
 				}
 			});
+		}
+		
+		public void notifyUserList() { 
+			// 1. DefaultModel (listModel) 비우고 
+			listModel.clear(); // repaint 가 내부적으로 들어가 있음
+			// 2. select 해서 전체목록 가져와서 JList<Member> (userList) 에 담기
+			// 3. listModel 채워줌 (userList 자동 갱신)
+			initData();
 		}
 }

@@ -16,6 +16,9 @@ public class ReadThread extends Thread {
 
 	private GameRoomFrame gameFrame;
 
+	public ReadThread(Socket socket) {
+		this.socket = socket;
+	}
 
 	@Override
 	public void run() {

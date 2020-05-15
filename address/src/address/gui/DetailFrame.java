@@ -15,16 +15,16 @@ import address.model.GroupType;
 
 public class DetailFrame extends JFrame {
 
-	private JFrame detailFrame = this;
+	private DetailFrame detailFrame = this;
 	private int memberId; // mainFrame 에서 넘어온 member 의 id 값 
-	private JFrame mainFrame;
+	private MainFrame mainFrame;
 	private Container backgroundPanel;
 	private JLabel laName, laPhone, laAddress, laGroup;
 	private JTextField tfName, tfPhone, tfAddress;
 	private JComboBox<GroupType> cbGroup;
 	private JButton updateButton, deleteButton;
 
-	public DetailFrame(JFrame mainFrame, int memberId) {
+	public DetailFrame(MainFrame mainFrame, int memberId) {
 		this.mainFrame = mainFrame;
 		this.memberId = memberId;
 		initObject();

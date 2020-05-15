@@ -2,30 +2,25 @@ package catchcatch.gui;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JTextField;
-
-import catchcatch.models.Users;
-
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 
 public class GameRoomFrame {
 
-
-	
 	private JFrame frame;
 	
 	private JTextField tfCard;
 	private JTextField tfChat;
 	private JTextField taUserList;
+	private JTextArea taChat;
+	private JButton btGstart;
+	
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -39,16 +34,12 @@ public class GameRoomFrame {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+
 	public GameRoomFrame() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 962, 738);
@@ -68,7 +59,7 @@ public class GameRoomFrame {
 		panel.setBounds(40, 106, 502, 541);
 		frame.getContentPane().add(panel);
 		
-		JButton btGstart = new JButton("게임시작");
+		btGstart = new JButton("게임시작");
 		btGstart.setBounds(580, 46, 323, 63);
 		frame.getContentPane().add(btGstart);
 		
@@ -80,7 +71,7 @@ public class GameRoomFrame {
 		taUserList.setBounds(580, 157, 323, 120);
 		frame.getContentPane().add(taUserList);
 		
-		JTextArea taChat = new JTextArea();
+		taChat = new JTextArea();
 		taChat.setBounds(580, 292, 323, 305);
 		frame.getContentPane().add(taChat);
 		
@@ -95,4 +86,17 @@ public class GameRoomFrame {
 	}
 	
 
+	
+	public JTextArea get게임채팅창() {
+		return this.taChat;
+	}
+	
+	public JTextField get게임유저리스트창() {
+		return this.taUserList;
+	}
+	
+	public JButton get게임시작버튼(){
+		return this.btGstart;
+	}
+	
 }
