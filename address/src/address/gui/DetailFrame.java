@@ -9,12 +9,17 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import address.model.GroupType;
+import address.model.Member;
+import address.service.MemberService;
 
 public class DetailFrame extends JFrame {
 
+	private final static String TAG = "DetailFrame : ";
+	
 	private DetailFrame detailFrame = this;
 	private int memberId; // mainFrame 에서 넘어온 member 의 id 값 
 	private MainFrame mainFrame;
@@ -23,6 +28,7 @@ public class DetailFrame extends JFrame {
 	private JTextField tfName, tfPhone, tfAddress;
 	private JComboBox<GroupType> cbGroup;
 	private JButton updateButton, deleteButton;
+	private MemberService memberService = MemberService.getinstance();
 
 	public DetailFrame(MainFrame mainFrame, int memberId) {
 		this.mainFrame = mainFrame;
@@ -49,7 +55,13 @@ public class DetailFrame extends JFrame {
 	}
 
 	private void initData() {
-		// 데이터베이스에서 들고올 것
+		// DetailFrame -> MemberService -> MemberDao의 상세보기 -> DB
+		Member member = memberService.상세보기(memberId);
+		tfName.setText(member.getName()); // setText()는 repaint() 들고 있음
+		tfPhone.setText(member.getPhone());
+		tfAddress.setText(member.getAddress());
+		cbGroup.setSelectedItem(member.getGroupType());
+		
 	}
 
 	private void initDesign() {
@@ -78,8 +90,24 @@ public class DetailFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// 서비스 연결 - 수정
+				System.out.println(TAG + "updateButton리스너 : " + tfName.getText()); // log 확인
+				Member member = Member.builder()
+						.name(tfName.getText())
+						.phone(tfPhone.getText())
+						.address(tfAddress.getText())
+						.groupType(GroupType.valueOf(cbGroup.getSelectedItem().toString()))
+						.id(memberId)
+						.build();
+				int result = memberService.수정하기(member);
+				if(result == 1) {
+				mainFrame.notifyUserList(); // 순서 2번 - 갱신 후에 창 열기 
 				detailFrame.dispose();
-				// this.dispose (X) -> 여기서 this 는 익명 클래스의 내부
+				mainFrame.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "주소록 수정에 실패하였습니다.");
+				}
+				
 			}
 		});
 
@@ -87,7 +115,19 @@ public class DetailFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				detailFrame.dispose();
+				// 서비스 연결 - 삭제
+				// result == 1 이면 아래 로직 실행, 1 이 아니면 Dialog 박스 띄우기 (삭제 실패)
+				System.out.println(TAG + "deleteButton리스너 : " + tfName.getText()); // log 확인
+				int result = memberService.삭제하기(memberId);
+				// 4. return값을 확인해서 로직을 직접 짜야함. (성공, 실패)
+				if(result == 1) {
+					// 5. 성공 = mainFrame에 값을 변경 (동기화)
+					mainFrame.notifyUserList(); 
+					detailFrame.dispose();
+					mainFrame.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "주소록 삭제에 실패하였습니다.");
+				}
 			}
 		});
 

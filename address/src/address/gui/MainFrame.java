@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import address.model.GroupType;
 import address.model.Member;
 import address.service.MemberService;
 import address.utils.MyStringParser;
@@ -103,6 +104,48 @@ public class MainFrame extends JFrame{
 		
 		// 리스너 등록 
 		private void initListener(	) {
+			
+			frButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					notifyUserList(GroupType.친구);
+				}
+			});
+			
+			coButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					notifyUserList(GroupType.회사);
+				}
+			});
+			
+			faButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					notifyUserList(GroupType.가족);
+				}
+			});
+			
+			scButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					notifyUserList(GroupType.학교);
+				}
+			});
+			
+			homeButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					notifyUserList();
+				}
+			});
+			
+			
 			userList.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -110,6 +153,7 @@ public class MainFrame extends JFrame{
 //					System.out.println(userList.getSelectedValue());  - 유저 리스트를 배열에 담음
 					int memberId = MyStringParser.getId(userList.getSelectedValue().toString());
 					new DetailFrame(mainFrame, memberId);
+					mainFrame.setVisible(false);
 				}
 			});
 			
@@ -123,11 +167,24 @@ public class MainFrame extends JFrame{
 			});
 		}
 		
+		// 전체 데이터 갱신
 		public void notifyUserList() { 
 			// 1. DefaultModel (listModel) 비우고 
 			listModel.clear(); // repaint 가 내부적으로 들어가 있음
 			// 2. select 해서 전체목록 가져와서 JList<Member> (userList) 에 담기
 			// 3. listModel 채워줌 (userList 자동 갱신)
 			initData();
+		}
+		
+		// 그룹 데이터 갱신 - 전체 데이터 갱신을 오버라이딩
+		public void notifyUserList(GroupType groupType) { 
+			// 1. DefaultModel (listModel) 비우고 
+			listModel.clear(); // repaint 가 내부적으로 들어가 있음
+			// 2. select 해서 전체목록 가져와서 JList<Member> (userList) 에 담기
+			// 3. listModel 채워줌 (userList 자동 갱신)
+			List<Member> members = memberService.그룹목록(groupType);
+			for (Member member : members) {
+				listModel.addElement(member);
+			}
 		}
 }
