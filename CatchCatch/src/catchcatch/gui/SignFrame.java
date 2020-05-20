@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -72,25 +71,24 @@ public class SignFrame extends JFrame {
 	}
 	
 	private void initListener() {
-		// 회원가입 버튼
+		// 1. 회원가입 버튼
 		btSign.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// 1. 텍스트필드에 있는 값을 가져옴 2. 값을 Users에 담음
-				Users users = Users.builder()
-						.userName(tfSid.getText())
-						.password(tfSpw.getText())
-						.build();
+//				Users users = Users.builder()
+//						.userName(tfSid.getText())
+//						.password(tfSpw.getText())
+//						.build();
 //				int result = 
 				// 4. 리턴 값 확인 후 성공, 실패 로직 짜기
 				// 5. 성공
 				signFrame.dispose();
-				loginFrame.setVisible(true);
 			}
 		});
 		
-		// X 버튼 눌렀을 때 원래 창으로 돌아감
+		// 2. X 버튼 눌렀을 때 원래 창으로 돌아감
 		signFrame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {

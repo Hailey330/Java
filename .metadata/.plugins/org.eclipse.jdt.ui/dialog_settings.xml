@@ -22,6 +22,8 @@
 	<section name="completion_proposal_size">
 		<item key="contextSelector.size.x" value="331"/>
 		<item key="contextSelector.size.y" value="221"/>
+		<item key="size.x" value="430"/>
+		<item key="size.y" value="254"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>

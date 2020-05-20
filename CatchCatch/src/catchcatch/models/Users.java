@@ -1,19 +1,42 @@
 package catchcatch.models;
 
-import lombok.Builder;
-import lombok.Data;
-
-@Data
 public class Users {
-	private int id; // PK - 넘버링
-	private String userName; // 유저 아이디, 닉네임
-	private String password; // 유저 비밀번호
+	
+//	private Socket socket;
+//	private PrintWriter pw;
+	
+	private String userId; // 유저 아이디, 닉네임
 
-	@Builder
-	public Users(int id, String userName, String password) {
-		this.id = id;
-		this.userName = userName;
-		this.password = password;
+//	public void setSocket(Socket socket) {
+//		this.socket = socket;
+//	}
+//	
+//	public Socket getSocket() {
+//		return this.socket;
+//	}
+	
+//	public void makeSend() {
+//		try {
+//			pw = new PrintWriter(socket.getOutputStream());
+//			System.out.println(socket + "접속 완료!");
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+
+//	public void sendMessage(String msg) {
+//		pw.println(msg);
+//		pw.flush();
+//	}
+
+	public String getUserId() {
+		return userId;
 	}
 
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	
 }
