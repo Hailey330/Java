@@ -66,6 +66,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\admin\Downloads\Mac_Java-master\Mac_Java-master\CatchMind_fin"/>
 			<item value="C:\src\javawork\CatchMind_v1.0"/>
 			<item value="C:\src\javawork\chat_v1.1\chat_v1.1"/>
 		</list>
